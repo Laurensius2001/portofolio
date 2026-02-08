@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Services = () => {
+  const { t } = useLanguage();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -9,16 +11,7 @@ const Services = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const services = [
-    'Web Application Development',
-    'Full-Stack Development',
-    'Backend & API Development',
-    'Admin Dashboard Development',
-    'Information System Development',
-    'Database Design & Management',
-    'System Integration',
-    'Responsive Web Development'
-  ];
+  const services = t('services.items') as string[];
 
   return (
     <section id="services" className="container" style={{
@@ -34,7 +27,7 @@ const Services = () => {
         color: 'var(--text-muted)',
         marginBottom: isMobile ? '32px' : '24px'
       }}>
-        Services
+        {t('services.title')}
       </p>
 
       <div style={{

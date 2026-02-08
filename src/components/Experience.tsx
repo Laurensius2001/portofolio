@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Experience = () => {
+    const { t } = useLanguage();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
@@ -9,53 +11,7 @@ const Experience = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const experienceData = [
-        {
-            period: 'December 2025 - Present',
-            position: 'Web Developer',
-            company: 'PT. Gunung Amal Solution Internasional'
-        },
-        {
-            period: 'May 2025 - June 2025',
-            position: 'Fullstack Developer',
-            company: 'Website Development for Jatiroke Village'
-        },
-        {
-            period: 'April 2025 - August 2025',
-            position: 'Fullstack Developer',
-            company: 'Vendor Catalog App'
-        },
-        {
-            period: 'February 2025 - March 2025',
-            position: 'Web Developer',
-            company: 'Canalize.asia Online Store (Shopify-based)'
-        },
-        {
-            period: 'January 2025 - February 2025',
-            position: 'Fullstack Developer',
-            company: 'Netiva Application - Freelance'
-        },
-        {
-            period: 'March 2023 - December 2024',
-            position: 'Manage Operation Level 2 UMAX, DAVA and ENOM - TLKM',
-            company: 'PT. Sigma Solusi Integrasi (Programmer)'
-        },
-        {
-            period: 'May 2021 - November 2023',
-            position: 'Full Stack Web Developer',
-            company: 'PT. Gunung Amal Solution Internasional'
-        },
-        {
-            period: 'September 2020 - September 2021',
-            position: 'System Administrator and Support',
-            company: 'PT. Gunung Amal Solution Internasional'
-        },
-        {
-            period: 'March 2019 - End of March 2019',
-            position: 'Internship',
-            company: 'PT. Gunung Amal Solution Internasional'
-        }
-    ];
+    const experienceData = t('experience.items') as any[];
 
     return (
         <section id="experience" className="container" style={{ marginBottom: isMobile ? '60px' : '80px', textAlign: isMobile ? 'left' : 'center' }}>
@@ -67,11 +23,11 @@ const Experience = () => {
                 color: 'var(--text-muted)',
                 marginBottom: '32px'
             }}>
-                Work Experience
+                {t('experience.title')}
             </p>
 
             <div style={{ maxWidth: '800px', margin: isMobile ? '0' : '0 auto', textAlign: 'left' }}>
-                {experienceData.map((exp, index) => (
+                {experienceData.map((exp: any, index: number) => (
                     <div
                         key={index}
                         style={{

@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Skills = () => {
+    const { t } = useLanguage();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
@@ -9,35 +11,7 @@ const Skills = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const skillsData = [
-        'Team Collaboration',
-        'JavaScript',
-        'jQuery',
-        'Database MySQL (v5.6, Neo.4j)',
-        'HTML, CSS, XML, YAML, PUG',
-        'Network Visual JavaScript (vis.js)',
-        'PHP, PHP My Admin, XAMPP',
-        'Neo.4j Graph DB',
-        'Data Analyst',
-        'Kibana',
-        'Leaflet.js',
-        'Bootstrap 3, 4, 5',
-        'React.js',
-        'Shopify',
-        'WordPress',
-        'CodeIgniter 3, 4',
-        'Laravel',
-        'Elasticsearch',
-        'Swagger UI',
-        'PostgreSQL C++',
-        'Linux',
-        'Tailwind CSS',
-        'Ajax.json',
-        'Node.js',
-        'Restful API',
-        'Vue.js',
-        'Ms. Word, Ms. Excel'
-    ];
+    const skillsData = t('skills.items') as string[];
 
     return (
         <section id="skills" className="container" style={{
@@ -52,7 +26,7 @@ const Skills = () => {
                 color: 'var(--text-muted)',
                 marginBottom: '24px'
             }}>
-                Skills
+                {t('skills.title')}
             </p>
 
             <div style={{

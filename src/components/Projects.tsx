@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Projects = () => {
+    const { t } = useLanguage();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
@@ -9,29 +11,7 @@ const Projects = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const projectsData = [
-        {
-            title: 'Canalize.asia Online Store',
-            category: 'E-commerce (Shopify-based)',
-            description: 'A premium streetwear online store built on Shopify, featuring custom theme modifications, responsive design, and integrated payment systems.',
-            tags: ['Shopify', 'Liquid', 'E-commerce', 'Responsive Design'],
-            link: 'https://canalize.asia',
-            images: []
-        },
-        {
-            title: 'Official Website of Jatiroke Village',
-            category: 'Government & Information System',
-            description: 'The official digital portal for Jatiroke Village, Sumedang. Features include a public information system, admin dashboard for population data management, tourism portal, and village news.',
-            tags: ['CodeIgniter', 'Bootstrap', 'MySQL', 'Admin Dashboard'],
-            link: null,
-            images: [
-                '/projects/jatiroke-1.png',
-                '/projects/jatiroke-3.png',
-                '/projects/jatiroke-4.png',
-                '/projects/jatiroke-2.png'
-            ]
-        }
-    ];
+    const projectsData = t('projects.items') as any[];
 
     return (
         <section id="project" className="container" style={{ marginBottom: isMobile ? '60px' : '80px', textAlign: isMobile ? 'left' : 'center' }}>
@@ -43,7 +23,7 @@ const Projects = () => {
                 color: 'var(--text-muted)',
                 marginBottom: '16px'
             }}>
-                Featured Projects
+                {t('projects.title')}
             </p>
             <h2 style={{
                 fontSize: isMobile ? '28px' : '32px',
@@ -52,7 +32,7 @@ const Projects = () => {
                 marginBottom: isMobile ? '32px' : '40px',
                 fontFamily: 'Poppins, sans-serif'
             }}>
-                Selected Works
+                {t('projects.subtitle')}
             </h2>
 
             <div style={{
@@ -90,7 +70,7 @@ const Projects = () => {
                                 </p>
 
                                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', marginBottom: isMobile ? '24px' : '32px' }}>
-                                    {project.tags.map((tag, i) => (
+                                    {project.tags.map((tag: string, i: number) => (
                                         <span
                                             key={i}
                                             style={{
@@ -115,13 +95,13 @@ const Projects = () => {
                                         className="btn-pill"
                                         style={{ width: 'fit-content' }}
                                     >
-                                        View Live Website
+                                        {t('projects.viewlive')}
                                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="7" y1="17" x2="17" y2="7" /><polyline points="7 7 17 7 17 17" /></svg>
                                     </a>
                                 ) : (
                                     <span style={{ fontSize: '13px', color: 'var(--text-muted)', fontStyle: 'italic', display: 'flex', alignItems: 'center', gap: '8px' }}>
                                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0 1 10 0v4" /></svg>
-                                        Confidential / Offline
+                                        {t('projects.confidential')}
                                     </span>
                                 )}
                             </div>
@@ -134,7 +114,7 @@ const Projects = () => {
                                     borderRadius: '16px',
                                     overflow: 'hidden'
                                 }}>
-                                    {project.images.map((img, i) => (
+                                    {project.images.map((img: string, i: number) => (
                                         <div key={i} style={{ aspectRatio: isMobile ? '16/9' : '16/10', overflow: 'hidden', background: '#000' }}>
                                             <img
                                                 src={img}

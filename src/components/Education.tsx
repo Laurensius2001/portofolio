@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Education = () => {
+    const { t } = useLanguage();
     const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     useEffect(() => {
@@ -9,28 +11,7 @@ const Education = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const educationData = [
-        {
-            institution: 'ARS University (S1 Teknik Informatika)',
-            period: '2020 - 2025'
-        },
-        {
-            institution: 'SMK ICB Cinta Teknika Bandung',
-            period: '2017 - 2020'
-        },
-        {
-            institution: 'SMP Lamatewelu',
-            period: '2014 - 2017'
-        },
-        {
-            institution: 'SDK Tobi',
-            period: '2008 - 2014'
-        },
-        {
-            institution: 'TK Hermina Tobi',
-            period: '2006 - 2008'
-        }
-    ];
+    const educationData = t('education.items') as any[];
 
     return (
         <section id="education" className="container" style={{ marginBottom: isMobile ? '60px' : '80px', textAlign: isMobile ? 'left' : 'center' }}>
@@ -42,11 +23,11 @@ const Education = () => {
                 color: 'var(--text-muted)',
                 marginBottom: '32px'
             }}>
-                Education
+                {t('education.title')}
             </p>
 
             <div style={{ maxWidth: '700px', margin: isMobile ? '0' : '0 auto', textAlign: 'left' }}>
-                {educationData.map((edu, index) => (
+                {educationData.map((edu: any, index: number) => (
                     <div
                         key={index}
                         style={{

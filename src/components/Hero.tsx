@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Hero = () => {
+  const { language, t } = useLanguage();
   const [displayText, setDisplayText] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  const roles = ['Full-Stack Web Developer', 'Web System Builder'];
+  const roles = t('hero.roles') as string[];
   const typingSpeed = 150;
   const backspaceSpeed = 80;
   const pauseDuration = 2500;
@@ -48,7 +50,7 @@ const Hero = () => {
 
     timerId = setTimeout(tick, typingSpeed);
     return () => clearTimeout(timerId);
-  }, [roleIndex]);
+  }, [roleIndex, language, roles]);
 
   return (
     <section
@@ -80,7 +82,7 @@ const Hero = () => {
           {/* Left Column */}
           <div style={{ zIndex: 10, textAlign: 'left' }}>
             <p style={{ color: 'var(--primary)', letterSpacing: '4px', fontSize: isMobile ? '11px' : '13px', fontWeight: '800', marginBottom: '16px', fontFamily: 'Poppins, sans-serif' }}>
-              I AM
+              {t('hero.iam')}
             </p>
             <h1 style={{
               fontSize: isMobile ? '34px' : '64px',
@@ -102,7 +104,7 @@ const Hero = () => {
               lineHeight: '1.6',
               fontFamily: 'Poppins, sans-serif'
             }}>
-              I enjoy turning ideas into functional web systems. From designing interfaces to implementing backend logic, I focus on delivering solutions that are practical and scalable.
+              {t('hero.description')}
             </p>
 
             <a href="#about" className="btn-pill" style={{
@@ -111,12 +113,12 @@ const Hero = () => {
               textDecoration: 'none',
               width: 'fit-content'
             }}>
-              More About Us
+              {t('hero.button')}
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="19" y2="12" /><line x1="5" y1="12" x2="19" y2="12" /><line x1="12" y1="19" x2="19" y2="12" /></svg>
             </a>
 
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: isMobile ? '20px' : '0' }}>
-              <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginBottom: '16px', fontWeight: '600' }}>Find me on</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginBottom: '16px', fontWeight: '600' }}>{t('common.findMe')}</p>
               <div style={{ display: 'flex', gap: '12px' }}>
                 {[
                   { name: 'instagram', url: 'https://www.instagram.com/llaurensz?igsh=b3g2M2tlc3Z3aGp6&utm_source=qr' },

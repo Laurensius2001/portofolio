@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
+  const { t } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -19,13 +21,13 @@ const Navbar = () => {
   }, []);
 
   const navItems = [
-    { label: 'Home', id: 'home' },
-    { label: 'About', id: 'about' },
-    { label: 'Services', id: 'services' },
-    { label: 'Education', id: 'education' },
-    { label: 'Experience', id: 'experience' },
-    { label: 'Skills', id: 'skills' },
-    { label: 'Projects', id: 'project' }
+    { label: t('nav.home'), id: 'home' },
+    { label: t('nav.about'), id: 'about' },
+    { label: t('nav.services'), id: 'services' },
+    { label: t('nav.education'), id: 'education' },
+    { label: t('nav.experience'), id: 'experience' },
+    { label: t('nav.skills'), id: 'skills' },
+    { label: t('nav.projects'), id: 'project' }
   ];
 
   return (
@@ -47,7 +49,8 @@ const Navbar = () => {
           transition: 'all 0.3s ease-in-out'
         }}
       >
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', position: 'relative' }}>
+
           {/* Logo */}
           <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '12px' }}>
             <div style={{
@@ -99,6 +102,7 @@ const Navbar = () => {
                 ))}
               </div>
             )}
+
             {isMobile && (
               <button
                 onClick={() => setIsMenuOpen(true)}

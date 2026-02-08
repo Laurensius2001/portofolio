@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const About = () => {
+  const { t } = useLanguage();
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
@@ -33,7 +35,7 @@ const About = () => {
         marginBottom: '24px',
         fontFamily: 'Poppins, sans-serif'
       }}>
-        About Me
+        {t('about.title')}
       </h2>
       <p style={{
         fontSize: isMobile ? '16px' : '18px',
@@ -42,8 +44,7 @@ const About = () => {
         marginBottom: '24px',
         fontFamily: 'Poppins, sans-serif'
       }}>
-        Hi, I'm Lorens — a Full-Stack Web Developer based in Indonesia.
-        I specialize in building web-based systems and applications, handling both frontend and backend development.
+        {t('about.p1')}
       </p>
       <p style={{
         fontSize: isMobile ? '16px' : '18px',
@@ -51,8 +52,7 @@ const About = () => {
         color: 'var(--text-muted)',
         fontFamily: 'Poppins, sans-serif'
       }}>
-        I have experience developing information systems, admin dashboards, and data-driven web applications.
-        My focus is on creating scalable, efficient, and maintainable solutions that solve real-world problems.
+        {t('about.p2')}
       </p>
     </section>
   );
