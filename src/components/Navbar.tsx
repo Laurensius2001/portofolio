@@ -52,16 +52,18 @@ const Navbar = () => {
         <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', position: 'relative' }}>
 
           {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: isMobile ? '8px' : '12px' }}>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
             <div style={{
               background: 'var(--primary)',
-              padding: isMobile ? '6px' : '8px',
+              padding: isMobile ? '6px 10px' : '8px 12px',
               borderRadius: '8px',
-              boxShadow: '0 0 15px var(--primary-glow)'
+              boxShadow: '0 0 15px var(--primary-glow)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
             }}>
-              <svg width={isMobile ? "18" : "22"} height={isMobile ? "18" : "22"} viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+              <span style={{ color: 'white', fontWeight: '900', fontSize: isMobile ? '16px' : '20px', fontFamily: 'Outfit', lineHeight: 1 }}>LD</span>
             </div>
-            <span style={{ fontWeight: '800', fontSize: isMobile ? '20px' : '24px', letterSpacing: '-0.5px', color: 'white', fontFamily: 'Outfit' }}>LorensAdonara</span>
           </div>
 
           {/* Desktop Links */}
@@ -90,14 +92,30 @@ const Navbar = () => {
                   { name: 'facebook', url: 'https://www.facebook.com/share/1BoS2k3fEF/?mibextid=wwXIfr' },
                   { name: 'whatsapp', url: 'https://wa.me/6281395445565' }
                 ].map((social) => (
-                  <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className="social-icon" style={{ width: '36px', height: '36px', background: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                    <div style={{ transform: 'scale(0.85)', color: 'var(--text-main)' }}>
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon"
+                    style={{
+                      width: '36px',
+                      height: '36px',
+                      background: 'rgba(255, 255, 255, 0.05)',
+                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'var(--text-main)'
+                    }}
+                  >
+                    <span style={{ display: 'flex', transform: 'scale(0.85)' }}>
                       {social.name === 'instagram' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>}
                       {social.name === 'linkedin' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>}
                       {social.name === 'twitter' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>}
                       {social.name === 'facebook' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>}
                       {social.name === 'whatsapp' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9l4.7-1.3-1.3 4.7z" /><path d="M12 8l4 6-2 1-4-6" /></svg>}
-                    </div>
+                    </span>
                   </a>
                 ))}
               </div>
@@ -106,6 +124,7 @@ const Navbar = () => {
             {isMobile && (
               <button
                 onClick={() => setIsMenuOpen(true)}
+                className="menu-toggle"
                 style={{
                   width: '44px',
                   height: '44px',
@@ -163,11 +182,17 @@ const Navbar = () => {
         >
           {/* Header */}
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{ background: 'var(--primary)', padding: '6px', borderRadius: '6px' }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" /></svg>
+            <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{
+                background: 'var(--primary)',
+                padding: '6px 10px',
+                borderRadius: '6px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}>
+                <span style={{ color: 'white', fontWeight: '900', fontSize: '16px', fontFamily: 'Outfit', lineHeight: 1 }}>LD</span>
               </div>
-              <span style={{ fontWeight: '800', fontSize: '20px', color: 'white', fontFamily: 'Outfit' }}>LorensAdonara</span>
             </div>
             <button
               onClick={() => setIsMenuOpen(false)}
@@ -215,7 +240,7 @@ const Navbar = () => {
           {/* Footer Socials */}
           <div style={{ marginTop: 'auto', paddingTop: '40px' }}>
             <p style={{ color: 'white', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.6 }}>
-              Find With Me
+              {t('common.findMe')}
             </p>
             <div style={{ display: 'flex', gap: '12px' }}>
               {[
@@ -231,15 +256,24 @@ const Navbar = () => {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-icon"
-                  style={{ width: '44px', height: '44px', background: 'rgba(255, 255, 255, 0.05)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                  style={{
+                    width: '44px',
+                    height: '44px',
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    borderRadius: '10px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'white'
+                  }}
                 >
-                  <div style={{ color: 'white' }}>
+                  <span style={{ display: 'flex' }}>
                     {social.name === 'instagram' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>}
                     {social.name === 'linkedin' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>}
                     {social.name === 'twitter' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>}
                     {social.name === 'facebook' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>}
                     {social.name === 'whatsapp' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9l4.7-1.3-1.3 4.7z" /><path d="M12 8l4 6-2 1-4-6" /></svg>}
-                  </div>
+                  </span>
                 </a>
               ))}
             </div>

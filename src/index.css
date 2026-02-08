@@ -25,8 +25,7 @@ html {
 
 body {
   font-family: 'Inter', sans-serif;
-  background: radial-gradient(circle at top right, #001a33 0%, #000811 100%);
-  background-attachment: fixed;
+  background: transparent;
   color: var(--text-main);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -109,6 +108,94 @@ h4 {
   }
 }
 
+@keyframes sweep {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.5;
+  }
+
+  100% {
+    left: 120%;
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-bg {
+  0% {
+    background: var(--primary);
+    box-shadow: 0 4px 15px var(--primary-glow);
+  }
+
+  50% {
+    background: #0088cc;
+    box-shadow: 0 4px 25px rgba(0, 180, 255, 0.6);
+  }
+
+  100% {
+    background: var(--primary);
+    box-shadow: 0 4px 15px var(--primary-glow);
+  }
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes rotate-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.menu-toggle {
+  position: relative !important;
+  overflow: hidden !important;
+  z-index: 10;
+}
+
+.menu-toggle::before {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 400%;
+  height: 400%;
+  background: conic-gradient(from 180deg at 50% 50%,
+      transparent 0deg,
+      transparent 280deg,
+      #ffffff 320deg,
+      transparent 360deg);
+  animation: rotate 3s linear infinite;
+  z-index: -2;
+  opacity: 0.8;
+}
+
+.menu-toggle::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  background: var(--primary);
+  border-radius: 50%;
+  z-index: -1;
+  animation: pulse-bg 2s infinite ease-in-out;
+}
+
+
+
 .typing-cursor::after {
   content: '|';
   animation: blink 1s step-end infinite;
@@ -122,6 +209,7 @@ h4 {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.1);
 }
+
 
 /* Buttons */
 .btn-outline {
@@ -235,20 +323,69 @@ h4 {
   padding: 8px 20px;
   border-radius: 9999px;
   background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 14px;
   font-weight: 500;
   color: var(--text-muted);
   transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  z-index: 0;
 }
 
+.badge::before {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 400%;
+  height: 400%;
+  background: conic-gradient(from 180deg at 50% 50%,
+      transparent 0deg,
+      transparent 280deg,
+      var(--primary) 320deg,
+      transparent 360deg);
+  animation: rotate 4s linear infinite;
+  z-index: -2;
+}
+
+.badge::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: #000811;
+  /* Match background */
+  border-radius: 9999px;
+  z-index: -1;
+  transition: background 0.3s ease;
+}
+
+/* Randomized directions and speeds */
+.badge:nth-child(even)::before {
+  animation: rotate-reverse 5s linear infinite;
+}
+
+.badge:nth-child(3n)::before {
+  animation: rotate 6s linear infinite;
+}
+
+.badge:nth-child(3n+1)::before {
+  animation-duration: 3s;
+}
+
+
 .badge:hover {
-  background: rgba(255, 255, 255, 0.1);
   border-color: var(--primary);
   color: white;
   transform: translateY(-3px);
   box-shadow: 0 5px 15px var(--primary-glow);
 }
+
+.badge:hover::after {
+  background: rgba(0, 180, 255, 0.2);
+  /* Tint the background on hover */
+}
+
 
 /* Navigation links */
 .nav-link {
@@ -281,8 +418,10 @@ h4 {
 }
 
 .btn-pill {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(13, 13, 13, 0.5);
+  /* Darker background for contrast */
   color: white;
   padding: 10px 24px;
   border-radius: 9999px;
@@ -292,13 +431,44 @@ h4 {
   font-size: 14px;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  overflow: hidden;
+  z-index: 0;
+}
+
+.btn-pill::before {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -50%;
+  width: 200%;
+  height: 400%;
+  background: conic-gradient(from 180deg at 50% 50%,
+      transparent 0deg,
+      transparent 280deg,
+      var(--primary) 320deg,
+      transparent 360deg);
+  animation: rotate 3s linear infinite;
+  z-index: -2;
+}
+
+.btn-pill::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: rgba(0, 8, 17, 0.9);
+  /* Match bg color */
+  border-radius: 9999px;
+  z-index: -1;
 }
 
 .btn-pill:hover {
-  border-color: var(--primary);
-  background: rgba(0, 180, 255, 0.1);
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 180, 255, 0.3);
+  box-shadow: 0 0 20px var(--primary-glow);
+}
+
+.btn-pill:hover::before {
+  animation-duration: 1.5s;
+  /* Speed up on hover */
 }
 
 .messenger-bubble {
@@ -333,7 +503,7 @@ h4 {
   width: 50px;
   height: 50px;
   background: var(--bg-card);
-  border: 1px solid var(--primary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 50%;
   display: flex;
   flex-direction: column;
@@ -344,14 +514,49 @@ h4 {
   z-index: 1000;
   cursor: pointer;
   transition: all 0.3s ease;
+  overflow: hidden;
+  /* Added for beam */
+}
+
+.language-bubble::before {
+  content: "";
+  position: absolute;
+  top: -150%;
+  left: -150%;
+  width: 400%;
+  height: 400%;
+  background: conic-gradient(from 180deg at 50% 50%,
+      transparent 0deg,
+      transparent 280deg,
+      var(--primary) 320deg,
+      transparent 360deg);
+  animation: rotate 3s linear infinite;
+  z-index: -2;
+}
+
+.language-bubble::after {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--bg-card);
+  border-radius: 50%;
+  z-index: -1;
 }
 
 .language-bubble:hover {
   transform: scale(1.1);
-  background: var(--primary);
   color: white;
   box-shadow: 0 6px 20px var(--primary-glow);
 }
+
+.language-bubble:hover::after {
+  background: var(--primary);
+}
+
+.language-bubble:hover::before {
+  animation-duration: 1.5s;
+}
+
 
 .language-bubble .lang-text {
   font-size: 9px;
@@ -386,4 +591,115 @@ h4 {
   background: var(--primary);
   color: white;
   padding-right: 12px;
+}
+
+/* Scroll To Top Button with Wavy Liquid Effect */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: #0d0d0d;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  cursor: pointer;
+  z-index: 1000;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px) scale(0.8);
+}
+
+.scroll-top-btn.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-top-btn:hover {
+  transform: translateY(-5px) scale(1.05);
+  border-color: var(--primary);
+  box-shadow: 0 8px 25px var(--primary-glow);
+}
+
+.scroll-top-btn .wave-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.scroll-top-btn .wave {
+  position: absolute;
+  top: var(--progress, 100%);
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: var(--primary);
+  opacity: 0.8;
+  border-radius: 38%;
+  animation: liquid-rotate 5s infinite linear;
+  transition: top 0.4s ease-out;
+}
+
+.scroll-top-btn .wave:nth-child(2) {
+  top: calc(var(--progress, 100%) - 2%);
+  opacity: 0.5;
+  border-radius: 42%;
+  background: #0088cc;
+  animation: liquid-rotate 7s infinite linear reverse;
+}
+
+.scroll-top-btn .wave:nth-child(3) {
+  top: calc(var(--progress, 100%) - 4%);
+  opacity: 0.3;
+  border-radius: 40%;
+  background: #006699;
+  animation: liquid-rotate 10s infinite linear;
+}
+
+@keyframes liquid-rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-top-btn {
+    bottom: 20px;
+    right: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .messenger-bubble {
+    bottom: 20px;
+    left: 20px;
+    width: 44px;
+    height: 44px;
+  }
+
+  .language-bubble {
+    bottom: 74px;
+    /* 20px + 44px + 10px gap */
+    left: 20px;
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
 }

@@ -85,15 +85,18 @@ const Hero = () => {
               {t('hero.iam')}
             </p>
             <h1 style={{
-              fontSize: isMobile ? '34px' : '64px',
+              fontSize: isMobile ? '36px' : '64px',
               fontWeight: '800',
-              lineHeight: '1.2',
+              lineHeight: '1.1',
               marginBottom: '20px',
               fontFamily: 'Poppins, sans-serif'
             }}>
-              Lorens Adonara, <br />
-              a <span style={{ color: 'var(--primary)' }} className="typing-cursor">
-                {displayText}
+              <span style={{ display: 'block', marginBottom: '8px' }}>Lorens Adonara,</span>
+              <span style={{ fontSize: isMobile ? '32px' : '60px' }}>
+                <span style={{ color: 'var(--text-main)' }}>{t('hero.rolePrefix')} </span>
+                <span style={{ color: 'var(--primary)', display: isMobile ? 'block' : 'inline-block' }} className="typing-cursor">
+                  {displayText}
+                </span>
               </span>
             </h1>
             <p style={{

@@ -38,7 +38,14 @@ const Skills = () => {
                 margin: isMobile ? '0' : '0 auto'
             }}>
                 {skillsData.map((skill, index) => (
-                    <span key={index} className="badge" style={{ fontSize: isMobile ? '13px' : '14px' }}>
+                    <span
+                        key={index}
+                        className="badge"
+                        style={{
+                            fontSize: isMobile ? '13px' : '14px',
+                            animationDelay: `${index * 0.4}s`
+                        }}
+                    >
                         {skill}
                     </span>
                 ))}

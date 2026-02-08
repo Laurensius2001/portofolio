@@ -39,7 +39,14 @@ const Services = () => {
         margin: '0 auto'
       }}>
         {services.map((service, index) => (
-          <span key={index} className="badge" style={{ fontSize: isMobile ? '13px' : '14px' }}>
+          <span
+            key={index}
+            className="badge"
+            style={{
+              fontSize: isMobile ? '13px' : '14px',
+              animationDelay: `${index * 0.5}s`
+            }}
+          >
             {service}
           </span>
         ))}
