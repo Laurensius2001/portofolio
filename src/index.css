@@ -307,31 +307,50 @@ h4 {
   left: 20px;
   width: 50px;
   height: 50px;
-  background: #0084ff;
+  background: #25D366;
+  /* WhatsApp Green */
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 4px 12px rgba(0, 132, 255, 0.3);
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
   z-index: 1000;
   cursor: pointer;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+
+.messenger-bubble:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
 }
 
 .side-built {
   position: fixed;
   right: 0;
   top: 50%;
-  transform: translateY(-50%) rotate(180deg);
-  background: #1e293b;
-  color: white;
-  padding: 8px 12px;
-  font-size: 10px;
-  font-weight: bold;
+  transform: translateY(-50%);
+  background: rgba(13, 13, 13, 0.8);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--primary);
+  padding: 15px 8px;
+  font-size: 11px;
+  font-weight: 800;
   writing-mode: vertical-rl;
-  border-radius: 0 4px 4px 0;
+  border-radius: 8px 0 0 8px;
   display: flex;
   align-items: center;
   gap: 10px;
   z-index: 100;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.side-built:hover {
+  background: var(--primary);
+  color: white;
+  padding-right: 12px;
 }
