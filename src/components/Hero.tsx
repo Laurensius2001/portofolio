@@ -128,7 +128,7 @@ const Hero = () => {
                   { name: 'linkedin', url: 'https://id.linkedin.com/in/laurensius-suban-a99732264' },
                   { name: 'twitter', url: 'https://x.com/kuduasik217804?s=21' },
                   { name: 'facebook', url: 'https://www.facebook.com/share/1BoS2k3fEF/?mibextid=wwXIfr' },
-                  { name: 'whatsapp', url: 'https://wa.me/6281395445565' }
+                  { name: 'whatsapp', url: 'https://wa.me/6281337383282' }
                 ].map((social) => (
                   <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className="social-icon" style={{ background: 'rgba(255, 255, 255, 0.05)', width: '36px', height: '36px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                     {social.name === 'instagram' && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y2="6.5" y1="6.5" /></svg>}

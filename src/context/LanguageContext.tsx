@@ -178,7 +178,7 @@ const translations = {
     skills: {
       title: 'Keahlian',
       items: [
-        'Kolaborasi Tim', 'JavaScript', 'jQuery', 'Database MySQL (v5.6, Neo.4j)',
+        'Kolaborasi Tim', 'JavaScript', 'Wordpress', 'jQuery', 'Database MySQL (v5.6, Neo.4j)',
         'HTML, CSS, XML, YAML, PUG', 'Visualisasi Jaringan JavaScript (vis.js)', 'PHP, PHP My Admin, XAMPP',
         'Neo.4j Graph DB', 'Analis Data', 'Kibana', 'Leaflet.js', 'Bootstrap 3, 4, 5',
         'React.js', 'Shopify', 'WordPress', 'CodeIgniter 3, 4', 'Laravel', 'Elasticsearch',
