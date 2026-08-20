@@ -90,7 +90,7 @@ const Navbar = () => {
                   { name: 'linkedin', url: 'https://id.linkedin.com/in/laurensius-suban-a99732264' },
                   { name: 'twitter', url: 'https://x.com/kuduasik217804?s=21' },
                   { name: 'facebook', url: 'https://www.facebook.com/share/1BoS2k3fEF/?mibextid=wwXIfr' },
-                  { name: 'whatsapp', url: 'https://wa.me/6281395445565' }
+                  { name: 'whatsapp', url: 'https://wa.me/6281337383282' }
                 ].map((social) => (
                   <a
                     key={social.name}
@@ -248,7 +248,7 @@ const Navbar = () => {
                 { name: 'linkedin', url: 'https://id.linkedin.com/in/laurensius-suban-a99732264' },
                 { name: 'twitter', url: 'https://x.com/kuduasik217804?s=21' },
                 { name: 'facebook', url: 'https://www.facebook.com/share/1BoS2k3fEF/?mibextid=wwXIfr' },
-                { name: 'whatsapp', url: 'https://wa.me/6281395445565' }
+                { name: 'whatsapp', url: 'https://wa.me/6281337383282' }
               ].map((social) => (
                 <a
                   key={social.name}

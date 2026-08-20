@@ -87,6 +87,18 @@ const translations = {
       confidential: 'Confidential / Offline',
       items: [
         {
+          title: 'Web-Based Internet Customer Complaint Information System (BTS Sodong Net)',
+          category: 'Web Information System & ISP Management',
+          description: 'A comprehensive full-stack customer service & complaint ticketing system for BUMDes Tirta Sejahtera internet unit (BTS Sodong Net). Built with React.js frontend, Node.js RESTful API documented with Swagger UI, and PostgreSQL database. Features real-time complaint tracking (Pending -> In Progress -> Resolved), customer package management, active subscriber monitoring, and automated POS thermal receipt printing.',
+          tags: ['React.js', 'Node.js', 'PostgreSQL', 'Swagger UI', 'RESTful API', 'POS Thermal'],
+          link: null,
+          images: [
+            '/projects/sodong-3.png',
+            '/projects/sodong-2.png',
+            '/projects/sodong-1.png'
+          ]
+        },
+        {
           title: 'Canalize.asia Online Store',
           category: 'E-commerce (Shopify-based)',
           description: 'A premium streetwear online store built on Shopify, featuring custom theme modifications, responsive design, and integrated payment systems.',
@@ -192,6 +204,18 @@ const translations = {
       viewlive: 'Lihat Website Lengsung',
       confidential: 'Rahasia / Offline',
       items: [
+        {
+          title: 'Sistem Informasi Pelayanan Keluhan Pelanggan Internet (BTS Sodong Net)',
+          category: 'Sistem Informasi & Manajemen ISP',
+          description: 'Sistem informasi full-stack pelayanan keluhan dan manajemen operasional internet untuk unit usaha BUMDes Tirta Sejahtera (BTS Sodong Net). Dibangun menggunakan antarmuka React.js, backend RESTful API Node.js dengan dokumentasi Swagger UI, serta database PostgreSQL. Dilengkapi alur penanganan tiket keluhan (Menunggu, Diproses, Selesai), manajemen alokasi paket internet, monitoring pelanggan, hingga pencetakan struk transaksi (POS Thermal).',
+          tags: ['React.js', 'Node.js', 'PostgreSQL', 'Swagger UI', 'RESTful API', 'POS Thermal'],
+          link: null,
+          images: [
+            '/projects/sodong-3.png',
+            '/projects/sodong-2.png',
+            '/projects/sodong-1.png'
+          ]
+        },
         {
           title: 'Toko Online Canalize.asia',
           category: 'E-commerce (Berbasis Shopify)',
