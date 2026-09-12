@@ -1,22 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import type { HeroStat } from '../types/portfolio';
 
 const Hero = () => {
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
   const [displayText, setDisplayText] = useState('');
   const [roleIndex, setRoleIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
-  const roles = t('hero.roles') as string[];
-  const typingSpeed = 150;
-  const backspaceSpeed = 80;
-  const pauseDuration = 2500;
+  const roles = useMemo(() => {
+    return (t<string[]>('hero.roles')) || ['Full-Stack Web Developer', 'Web System Builder'];
+  }, [t]);
 
-  useEffect(() => {
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const typingSpeed = 120;
+  const backspaceSpeed = 60;
+  const pauseDuration = 2200;
 
   useEffect(() => {
     let i = 0;
@@ -24,7 +21,7 @@ const Hero = () => {
     let timerId: ReturnType<typeof setTimeout>;
 
     const tick = () => {
-      const fullText = roles[roleIndex];
+      const fullText = roles[roleIndex] || '';
 
       if (isDeleting) {
         setDisplayText(fullText.substring(0, i - 1));
@@ -50,126 +47,350 @@ const Hero = () => {
 
     timerId = setTimeout(tick, typingSpeed);
     return () => clearTimeout(timerId);
-  }, [roleIndex, language, roles]);
+  }, [roleIndex, roles]);
+
+  const stats = (t<HeroStat[]>('hero.stats')) || [
+    { value: '5+', label: 'Years Experience' },
+    { value: '10+', label: 'Systems & Apps' },
+    { value: '100%', label: 'Production Quality' }
+  ];
 
   return (
     <section
       id="home"
       style={{
-        minHeight: isMobile ? 'auto' : '100vh',
+        minHeight: '100vh',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
         position: 'relative',
-        overflow: 'hidden',
-        paddingTop: isMobile ? '100px' : '80px',
-        paddingBottom: isMobile ? '60px' : '0',
-        textAlign: 'left'
+        paddingTop: '130px',
+        paddingBottom: '80px',
+        overflow: 'hidden'
       }}
     >
-      {/* Background Decorations */}
-      <div className="bg-text-outline" style={{ top: '20%', right: '5%' }}>Full Stack</div>
-      <div className="bg-text-solid" style={{ bottom: '20%', right: '30%' }}>Developer</div>
+      {/* Subtle Background Glow Orbs */}
+      <div
+        style={{
+          position: 'absolute',
+          top: '20%',
+          right: '10%',
+          width: '500px',
+          height: '500px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(0, 180, 255, 0.12) 0%, transparent 70%)',
+          filter: 'blur(60px)',
+          pointerEvents: 'none',
+          zIndex: -1
+        }}
+      />
+      <div
+        style={{
+          position: 'absolute',
+          bottom: '10%',
+          left: '5%',
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(99, 102, 241, 0.09) 0%, transparent 70%)',
+          filter: 'blur(50px)',
+          pointerEvents: 'none',
+          zIndex: -1
+        }}
+      />
 
-      <div className="container" style={{ transform: isMobile ? 'none' : 'translateY(-40px)', width: '100%' }}>
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '1.2fr 0.8fr',
-          alignItems: 'center',
-          gap: isMobile ? '30px' : '60px'
-        }}>
-
-          {/* Left Column */}
+      <div className="container" style={{ width: '100%' }}>
+        <div
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            alignItems: 'center',
+            gap: '48px'
+          }}
+        >
+          {/* Left Hero Content */}
           <div style={{ zIndex: 10, textAlign: 'left' }}>
-            <p style={{ color: 'var(--primary)', letterSpacing: '4px', fontSize: isMobile ? '11px' : '13px', fontWeight: '800', marginBottom: '16px', fontFamily: 'Poppins, sans-serif' }}>
-              {t('hero.iam')}
-            </p>
-            <h1 style={{
-              fontSize: isMobile ? '36px' : '64px',
-              fontWeight: '800',
-              lineHeight: '1.1',
-              marginBottom: '20px',
-              fontFamily: 'Poppins, sans-serif'
-            }}>
-              <span style={{ display: 'block', marginBottom: '8px' }}>Lorens Adonara,</span>
-              <span style={{ fontSize: isMobile ? '32px' : '60px' }}>
-                <span style={{ color: 'var(--text-main)' }}>{t('hero.rolePrefix')} </span>
-                <span style={{ color: 'var(--primary)', display: isMobile ? 'block' : 'inline-block' }} className="typing-cursor">
+            {/* Availability Status Badge */}
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '10px',
+                padding: '8px 18px',
+                borderRadius: 'var(--radius-full)',
+                background: 'rgba(16, 185, 129, 0.08)',
+                border: '1px solid rgba(16, 185, 129, 0.25)',
+                marginBottom: '24px',
+                backdropFilter: 'blur(10px)'
+              }}
+            >
+              <span className="beacon-dot" />
+              <span
+                style={{
+                  fontSize: '13px',
+                  fontWeight: '600',
+                  color: '#6ee7b7',
+                  letterSpacing: '0.02em'
+                }}
+              >
+                {t('hero.status')}
+              </span>
+            </div>
+
+            {/* Main Headline */}
+            <h1
+              style={{
+                fontSize: 'clamp(38px, 5.5vw, 64px)',
+                fontWeight: '800',
+                lineHeight: 1.12,
+                marginBottom: '20px',
+                letterSpacing: '-0.03em'
+              }}
+            >
+              <span style={{ display: 'block', color: 'var(--text-main)' }}>
+                Lorens Adonara,
+              </span>
+              <span style={{ display: 'block', fontSize: 'clamp(30px, 4.2vw, 54px)', marginTop: '4px' }}>
+                <span style={{ color: 'var(--text-secondary)', fontWeight: '600' }}>{t('hero.rolePrefix')}</span>
+                <span className="gradient-accent typing-cursor">
                   {displayText}
                 </span>
               </span>
             </h1>
-            <p style={{
-              color: 'var(--text-muted)',
-              fontSize: isMobile ? '15px' : '20px',
-              maxWidth: isMobile ? '100%' : '650px',
-              marginBottom: '32px',
-              lineHeight: '1.6',
-              fontFamily: 'Poppins, sans-serif'
-            }}>
+
+            {/* Description */}
+            <p
+              style={{
+                color: 'var(--text-muted)',
+                fontSize: 'clamp(16px, 1.6vw, 19px)',
+                maxWidth: '620px',
+                lineHeight: 1.65,
+                marginBottom: '36px'
+              }}
+            >
               {t('hero.description')}
             </p>
 
-            <a href="#about" className="btn-pill" style={{
-              marginBottom: isMobile ? '50px' : '60px',
-              marginTop: isMobile ? '24px' : '0',
-              textDecoration: 'none',
-              width: 'fit-content'
-            }}>
-              {t('hero.button')}
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="19" y2="12" /><line x1="5" y1="12" x2="19" y2="12" /><line x1="12" y1="19" x2="19" y2="12" /></svg>
-            </a>
+            {/* CTAs */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', marginBottom: '44px' }}>
+              <a href="#project" className="btn-primary">
+                <span>{t('hero.button')}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12" />
+                  <polyline points="12 5 19 12 12 19" />
+                </svg>
+              </a>
 
-            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', marginTop: isMobile ? '20px' : '0' }}>
-              <p style={{ color: 'var(--text-muted)', fontSize: '12px', marginBottom: '16px', fontWeight: '600' }}>{t('common.findMe')}</p>
-              <div style={{ display: 'flex', gap: '12px' }}>
-                {[
-                  { name: 'instagram', url: 'https://www.instagram.com/llaurensz?igsh=b3g2M2tlc3Z3aGp6&utm_source=qr' },
-                  { name: 'linkedin', url: 'https://id.linkedin.com/in/laurensius-suban-a99732264' },
-                  { name: 'twitter', url: 'https://x.com/kuduasik217804?s=21' },
-                  { name: 'facebook', url: 'https://www.facebook.com/share/1BoS2k3fEF/?mibextid=wwXIfr' },
-                  { name: 'whatsapp', url: 'https://wa.me/6281337383282' }
-                ].map((social) => (
-                  <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" className="social-icon" style={{ background: 'rgba(255, 255, 255, 0.05)', width: '36px', height: '36px', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
-                    {social.name === 'instagram' && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y2="6.5" y1="6.5" /></svg>}
-                    {social.name === 'linkedin' && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>}
-                    {social.name === 'twitter' && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>}
-                    {social.name === 'facebook' && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>}
-                    {social.name === 'whatsapp' && <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9l4.7-1.3-1.3 4.7z" /><path d="M12 8l4 6-2 1-4-6" /></svg>}
-                  </a>
-                ))}
-              </div>
+              <a href="#contact" className="btn-secondary">
+                <span>{t('hero.contactBtn')}</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              </a>
+            </div>
+
+            {/* Key Metrics Row */}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(3, 1fr)',
+                gap: '16px',
+                paddingTop: '28px',
+                borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+                maxWidth: '560px'
+              }}
+            >
+              {stats.map((stat, index) => (
+                <div key={index}>
+                  <div
+                    style={{
+                      fontSize: 'clamp(24px, 3vw, 32px)',
+                      fontWeight: '800',
+                      color: 'var(--primary)',
+                      fontFamily: 'var(--font-heading)',
+                      lineHeight: 1.1,
+                      marginBottom: '4px'
+                    }}
+                  >
+                    {stat.value}
+                  </div>
+                  <div style={{ fontSize: '13px', color: 'var(--text-muted)', fontWeight: '500' }}>
+                    {stat.label}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Column */}
-          <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', order: isMobile ? -1 : 1 }}>
+          {/* Right Hero Profile Showcase */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              position: 'relative',
+              padding: '24px 20px'
+            }}
+          >
+            {/* Ambient Profile Halo */}
             <div
               style={{
                 position: 'absolute',
-                width: '120%',
-                height: '110%',
-                background: 'radial-gradient(circle, rgba(0, 180, 255, 0.15) 0%, transparent 70%)',
-                zIndex: -1,
-                top: '-5%',
-                animation: 'pulse-glow 5s infinite'
+                width: '100%',
+                height: '100%',
+                borderRadius: '50%',
+                background: 'radial-gradient(circle, rgba(0, 180, 255, 0.25) 0%, rgba(99, 102, 241, 0.1) 50%, transparent 75%)',
+                filter: 'blur(40px)',
+                zIndex: 0
               }}
             />
 
-            <div className="profile-blob" style={{
-              width: isMobile ? '280px' : '480px',
-              height: isMobile ? '280px' : '480px',
-              background: '#222',
-              overflow: 'hidden'
-            }}>
-              <img
-                src="/profile.png"
-                alt="Lorens Adonara"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
+            {/* Profile Outer Container with overflow: visible so badges never get clipped */}
+            <div
+              style={{
+                position: 'relative',
+                zIndex: 1,
+                width: '100%',
+                maxWidth: '420px',
+                aspectRatio: '1 / 1.08',
+                overflow: 'visible'
+              }}
+            >
+              {/* Profile Card Frame */}
+              <div
+                style={{
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '32px',
+                  padding: '12px',
+                  background: 'linear-gradient(145deg, rgba(15, 23, 42, 0.85) 0%, rgba(10, 16, 30, 0.95) 100%)',
+                  border: '1px solid rgba(0, 180, 255, 0.3)',
+                  boxShadow: '0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px -10px var(--primary-glow)',
+                  backdropFilter: 'blur(16px)',
+                  WebkitBackdropFilter: 'blur(16px)',
+                  boxSizing: 'border-box'
+                }}
+              >
+                {/* Inner Image Container (clips the photo only) */}
+                <div
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    borderRadius: '22px',
+                    overflow: 'hidden',
+                    background: '#090e1a',
+                    position: 'relative'
+                  }}
+                >
+                  <img
+                    src="/profile.png"
+                    alt="Lorens Adonara"
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center top',
+                      transition: 'transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)'
+                    }}
+                    onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.05)')}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+                  />
+
+                  {/* Subtle vignette gradient overlay */}
+                  <div
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      background: 'linear-gradient(to top, rgba(5, 8, 20, 0.7) 0%, transparent 40%)',
+                      pointerEvents: 'none'
+                    }}
+                  />
+                </div>
+              </div>
+
+              {/* Floating Tech Badges (positioned on outer container with overflow: visible) */}
+              {/* Badge 1: React.js (Top Left) */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '-14px',
+                  left: '-14px',
+                  background: 'rgba(11, 18, 34, 0.95)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(0, 180, 255, 0.4)',
+                  padding: '8px 16px',
+                  borderRadius: 'var(--radius-full)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.7), 0 0 15px -2px var(--primary-glow)',
+                  zIndex: 10,
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00b4ff" strokeWidth="2">
+                  <circle cx="12" cy="12" r="2.5" />
+                  <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(30 12 12)" />
+                  <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(90 12 12)" />
+                  <ellipse cx="12" cy="12" rx="10" ry="4.5" transform="rotate(150 12 12)" />
+                </svg>
+                <span style={{ fontSize: '13px', fontWeight: '700', color: '#ffffff' }}>React.js</span>
+              </div>
+
+              {/* Badge 2: Node.js / Backend (Bottom Right) */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '24px',
+                  right: '-18px',
+                  background: 'rgba(11, 18, 34, 0.95)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(16, 185, 129, 0.4)',
+                  padding: '8px 16px',
+                  borderRadius: 'var(--radius-full)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '8px',
+                  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.7)',
+                  zIndex: 10,
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                <span style={{ width: '8px', height: '8px', borderRadius: '50%', background: '#10b981', boxShadow: '0 0 8px #10b981' }} />
+                <span style={{ fontSize: '13px', fontWeight: '700', color: '#ffffff' }}>Node.js & APIs</span>
+              </div>
+
+              {/* Badge 3: PostgreSQL (Bottom Left) */}
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '-14px',
+                  left: '20px',
+                  background: 'rgba(11, 18, 34, 0.95)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  border: '1px solid rgba(99, 102, 241, 0.4)',
+                  padding: '7px 16px',
+                  borderRadius: 'var(--radius-full)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.7)',
+                  zIndex: 10,
+                  whiteSpace: 'nowrap'
+                }}
+              >
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3" />
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+                </svg>
+                <span style={{ fontSize: '12px', fontWeight: '700', color: '#c7d2fe' }}>PostgreSQL</span>
+              </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>

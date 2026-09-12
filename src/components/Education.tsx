@@ -1,68 +1,116 @@
-import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
+import type { EducationItem } from '../types/portfolio';
 
 const Education = () => {
-    const { t } = useLanguage();
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const { t } = useLanguage();
 
-    useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth <= 768);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
+  const educationData = (t<EducationItem[]>('education.items')) || [];
 
-    const educationData = t('education.items') as any[];
+  return (
+    <section id="education" style={{ padding: '80px 0' }}>
+      <div className="container">
+        {/* Section Header */}
+        <div className="section-header">
+          <div className="section-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+              <path d="M6 12v5c3 3 9 3 12 0v-5" />
+            </svg>
+            <span>{t<string>('education.badge')}</span>
+          </div>
+          <h2 className="section-title gradient-text">
+            {t<string>('education.title')}
+          </h2>
+        </div>
 
-    return (
-        <section id="education" className="container" style={{ marginBottom: isMobile ? '60px' : '80px', textAlign: isMobile ? 'left' : 'center' }}>
-            <p style={{
-                fontSize: isMobile ? '11px' : '12px',
-                fontWeight: '600',
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: 'var(--text-muted)',
-                marginBottom: '32px'
-            }}>
-                {t('education.title')}
-            </p>
+        {/* Education Grid */}
+        <div
+          style={{
+            maxWidth: '900px',
+            margin: '0 auto',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+            gap: '20px'
+          }}
+        >
+          {educationData.map((edu: EducationItem, index: number) => {
+            const isHigherEd = index === 0;
 
-            <div style={{ maxWidth: '700px', margin: isMobile ? '0' : '0 auto', textAlign: 'left' }}>
-                {educationData.map((edu: any, index: number) => (
+            return (
+              <div
+                key={index}
+                className="glass-card"
+                style={{
+                  padding: '24px 28px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  border: isHigherEd ? '1px solid rgba(0, 180, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.08)',
+                  background: isHigherEd
+                    ? 'linear-gradient(135deg, rgba(0, 180, 255, 0.06) 0%, rgba(11, 18, 34, 0.8) 100%)'
+                    : 'var(--bg-card)'
+                }}
+              >
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
                     <div
-                        key={index}
-                        style={{
-                            display: 'flex',
-                            flexDirection: isMobile ? 'column' : 'row',
-                            justifyContent: 'space-between',
-                            alignItems: isMobile ? 'flex-start' : 'flex-start',
-                            padding: '16px 0',
-                            gap: isMobile ? '6px' : '0',
-                            borderBottom: index < educationData.length - 1 ? '1px solid rgba(255, 255, 255, 0.1)' : 'none'
-                        }}
+                      style={{
+                        width: '38px',
+                        height: '38px',
+                        borderRadius: '10px',
+                        background: isHigherEd ? 'rgba(0, 180, 255, 0.15)' : 'rgba(255, 255, 255, 0.05)',
+                        border: `1px solid ${isHigherEd ? 'rgba(0, 180, 255, 0.3)' : 'rgba(255, 255, 255, 0.1)'}`,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: isHigherEd ? 'var(--primary)' : 'var(--text-secondary)'
+                      }}
                     >
-                        <p style={{
-                            fontSize: isMobile ? '15px' : '16px',
-                            color: 'var(--text-main)',
-                            fontFamily: 'Poppins, sans-serif',
-                            fontWeight: '500',
-                            flex: 1
-                        }}>
-                            {edu.institution}
-                        </p>
-                        <p style={{
-                            fontSize: isMobile ? '13px' : '14px',
-                            color: 'var(--text-muted)',
-                            fontFamily: 'Poppins, sans-serif',
-                            whiteSpace: 'nowrap',
-                            marginLeft: isMobile ? '0' : '20px'
-                        }}>
-                            {edu.period}
-                        </p>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                        <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                      </svg>
                     </div>
-                ))}
-            </div>
-        </section>
-    );
+
+                    <span
+                      style={{
+                        fontSize: '12px',
+                        fontWeight: '700',
+                        color: isHigherEd ? 'var(--primary)' : 'var(--text-muted)',
+                        padding: '3px 12px',
+                        borderRadius: 'var(--radius-full)',
+                        background: isHigherEd ? 'rgba(0, 180, 255, 0.1)' : 'rgba(255, 255, 255, 0.04)',
+                        border: `1px solid ${isHigherEd ? 'rgba(0, 180, 255, 0.25)' : 'rgba(255, 255, 255, 0.06)'}`
+                      }}
+                    >
+                      {edu.period}
+                    </span>
+                  </div>
+
+                  <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#ffffff', marginBottom: '6px' }}>
+                    {edu.institution}
+                  </h3>
+
+                  <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
+                    {edu.degree}
+                  </p>
+                </div>
+
+                {edu.status && (
+                  <div style={{ marginTop: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}>
+                    <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent-emerald)' }} />
+                    <span style={{ fontSize: '12px', color: '#6ee7b7', fontWeight: '600' }}>
+                      {edu.status}
+                    </span>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default Education;

@@ -11,263 +11,155 @@ const AnimatedBackground = () => {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let planes: Airplane[] = [];
-    let explosions: (ExplosionParticle | Shockwave)[] = [];
-    let lastCollisionTime = 0;
-    let shakeAmount = 0;
-    let flashAlpha = 0;
-    let gradient: CanvasGradient | null = null;
+    let width = 0;
+    let height = 0;
 
-    const resizeCanvas = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      gradient = ctx.createRadialGradient(
-        canvas.width * 0.8, canvas.height * 0.2, 0,
-        canvas.width * 0.8, canvas.height * 0.2, canvas.width
-      );
-      gradient.addColorStop(0, '#001a33');
-      gradient.addColorStop(1, '#000811');
+    const mouse = {
+      x: -1000,
+      y: -1000,
+      radius: 160
     };
 
-    class Shockwave {
-      x: number;
-      y: number;
-      radius: number = 0;
-      maxRadius: number;
-      life: number = 40;
-      maxLife: number = 40;
-
-      constructor(x: number, y: number) {
-        this.x = x;
-        this.y = y;
-        this.maxRadius = Math.max(window.innerWidth, window.innerHeight) * 0.4;
-      }
-
-      update() {
-        this.radius += this.maxRadius / this.maxLife;
-        this.life--;
-      }
-
-      draw() {
-        if (!ctx) return;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(255, 255, 255, ${Math.max(0, this.life / this.maxLife * 0.15)})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-    }
-
-    class ExplosionParticle {
+    interface Particle {
       x: number;
       y: number;
       vx: number;
       vy: number;
-      life: number;
-      maxLife: number;
-      color: string;
       size: number;
-      type: 'fire' | 'smoke' | 'spark';
-
-      constructor(x: number, y: number, type: 'fire' | 'smoke' | 'spark') {
-        this.x = x;
-        this.y = y;
-        this.type = type;
-        const angle = Math.random() * Math.PI * 2;
-        let speed = 0;
-
-        if (type === 'fire') speed = Math.random() * 5 + 2;
-        else if (type === 'spark') speed = Math.random() * 10 + 5;
-        else speed = Math.random() * 2 + 0.5;
-
-        this.vx = Math.cos(angle) * speed;
-        this.vy = Math.sin(angle) * speed;
-
-        this.maxLife = type === 'smoke' ? Math.random() * 50 + 30 : Math.random() * 25 + 10;
-        this.life = this.maxLife;
-
-        if (type === 'fire') this.color = `rgba(255, ${Math.floor(Math.random() * 80 + 100)}, 0, `;
-        else if (type === 'spark') this.color = `rgba(255, 255, 255, `;
-        else this.color = `rgba(40, 40, 40, `; // Darker smoke
-
-        this.size = type === 'smoke' ? Math.random() * 6 + 3 : Math.random() * 2 + 1;
-      }
-
-      update() {
-        this.x += this.vx;
-        this.y += this.vy;
-
-        if (this.type === 'smoke') {
-          this.vy -= 0.02;
-          this.vx *= 0.99;
-          this.size += 0.05;
-        } else {
-          this.vy += 0.06;
-          this.vx *= 0.96;
-        }
-        this.life--;
-      }
-
-      draw() {
-        if (!ctx) return;
-        const alpha = Math.max(0, this.life / this.maxLife);
-        ctx.fillStyle = this.color + alpha + ')';
-        ctx.beginPath();
-        const currentSize = this.type === 'smoke' ? this.size : this.size * alpha;
-        ctx.arc(this.x, this.y, currentSize, 0, Math.PI * 2);
-        ctx.fill();
-      }
+      baseAlpha: number;
+      color: string;
     }
 
-    class Airplane {
-      x: number;
-      y: number;
-      speedX: number;
-      direction: number;
-      isCollisionPlane: boolean;
-      targetX?: number;
-      hasExploded: boolean = false;
-      blinkTimer: number = 0;
-      opacity: number;
+    let particles: Particle[] = [];
 
-      constructor(isCollision = false, customY?: number, customDir?: number) {
-        this.isCollisionPlane = isCollision;
-        this.direction = customDir || (Math.random() > 0.5 ? 1 : -1);
-        this.x = this.direction === 1 ? -250 : (canvas?.width || 0) + 250;
-        this.y = customY !== undefined ? customY : Math.random() * (canvas?.height || 0);
-        this.speedX = (isCollision ? 5.5 : Math.random() * 1.5 + 1) * this.direction;
-        this.opacity = isCollision ? 1 : Math.random() * 0.4 + 0.3;
-        if (isCollision) this.targetX = (canvas?.width || 0) / 2;
+    const resize = () => {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+      initParticles();
+    };
+
+    const initParticles = () => {
+      particles = [];
+      // Dynamic count based on screen area, balanced for performance
+      const particleCount = Math.min(75, Math.floor((width * height) / 18000));
+
+      const colors = ['rgba(0, 180, 255, ', 'rgba(99, 102, 241, ', 'rgba(14, 165, 233, '];
+
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          size: Math.random() * 2 + 1,
+          baseAlpha: Math.random() * 0.4 + 0.2,
+          color: colors[Math.floor(Math.random() * colors.length)]
+        });
       }
+    };
 
-      update() {
-        if (this.hasExploded) return;
-        this.x += this.speedX;
-        this.blinkTimer += 0.12;
+    const handleMouseMove = (e: MouseEvent) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+    };
 
-        if (this.isCollisionPlane && this.targetX !== undefined) {
-          if (Math.abs(this.x - this.targetX) < 10) {
-            this.hasExploded = true;
-            triggerBigBang(this.x, this.y);
-          }
-        } else {
-          const limit = (canvas?.width || 0) + 400;
-          if (this.x > limit || this.x < -400) {
-            this.x = this.direction === 1 ? -250 : limit - 150;
-            this.y = Math.random() * (canvas?.height || 0);
-          }
+    const handleMouseLeave = () => {
+      mouse.x = -1000;
+      mouse.y = -1000;
+    };
+
+    window.addEventListener('resize', resize);
+    window.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseleave', handleMouseLeave);
+
+    resize();
+
+    const render = () => {
+      ctx.clearRect(0, 0, width, height);
+
+      // 1. Draw subtle ambient glowing mesh in the corners
+      const radGrad1 = ctx.createRadialGradient(width * 0.85, height * 0.15, 0, width * 0.85, height * 0.15, width * 0.5);
+      radGrad1.addColorStop(0, 'rgba(0, 180, 255, 0.08)');
+      radGrad1.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = radGrad1;
+      ctx.fillRect(0, 0, width, height);
+
+      const radGrad2 = ctx.createRadialGradient(width * 0.15, height * 0.85, 0, width * 0.15, height * 0.85, width * 0.45);
+      radGrad2.addColorStop(0, 'rgba(99, 102, 241, 0.07)');
+      radGrad2.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = radGrad2;
+      ctx.fillRect(0, 0, width, height);
+
+      // 2. Update and draw particles
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+
+        // Move
+        p.x += p.vx;
+        p.y += p.vy;
+
+        // Bounce on edges
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+
+        // Mouse interaction: gentle push
+        const dx = mouse.x - p.x;
+        const dy = mouse.y - p.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+
+        if (dist < mouse.radius) {
+          const force = (mouse.radius - dist) / mouse.radius;
+          const angle = Math.atan2(dy, dx);
+          p.x -= Math.cos(angle) * force * 1.5;
+          p.y -= Math.sin(angle) * force * 1.5;
         }
-      }
 
-      draw() {
-        if (!ctx || this.hasExploded) return;
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        if (this.direction === -1) ctx.scale(-1, 1);
-
-        const bodySize = this.isCollisionPlane ? 22 : 12;
-        ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+        // Draw particle
         ctx.beginPath();
-        ctx.moveTo(0, 0);
-        ctx.lineTo(-bodySize, -bodySize / 3.5);
-        ctx.lineTo(-bodySize, bodySize / 3.5);
-        ctx.closePath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color + p.baseAlpha + ')';
         ctx.fill();
 
-        if (Math.sin(this.blinkTimer) > 0.5) {
-          ctx.fillStyle = '#ff3300';
+        // Connect nearby particles
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const pdist = Math.hypot(p.x - p2.x, p.y - p2.y);
+          const maxDist = 130;
+
+          if (pdist < maxDist) {
+            const lineAlpha = (1 - pdist / maxDist) * 0.15;
+            ctx.beginPath();
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(p2.x, p2.y);
+            ctx.strokeStyle = `rgba(0, 180, 255, ${lineAlpha})`;
+            ctx.lineWidth = 0.8;
+            ctx.stroke();
+          }
+        }
+
+        // Connect to mouse if close
+        if (dist < mouse.radius) {
+          const lineAlpha = (1 - dist / mouse.radius) * 0.25;
           ctx.beginPath();
-          ctx.arc(-bodySize / 4, 0, this.isCollisionPlane ? 4 : 2, 0, Math.PI * 2);
-          ctx.fill();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(mouse.x, mouse.y);
+          ctx.strokeStyle = `rgba(0, 220, 255, ${lineAlpha})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
         }
-        ctx.restore();
       }
-    }
 
-    const triggerBigBang = (x: number, y: number) => {
-      shakeAmount = 10;
-      flashAlpha = 0.6;
-      explosions.push(new Shockwave(x, y));
-      for (let i = 0; i < 30; i++) explosions.push(new ExplosionParticle(x, y, 'fire'));
-      for (let i = 0; i < 20; i++) explosions.push(new ExplosionParticle(x, y, 'spark'));
-      for (let i = 0; i < 40; i++) explosions.push(new ExplosionParticle(x, y, 'smoke'));
+      animationFrameId = requestAnimationFrame(render);
     };
 
-    const init = () => {
-      const planeCount = Math.max(4, Math.floor(window.innerWidth / 200));
-      planes = [];
-      for (let i = 0; i < planeCount; i++) {
-        const p = new Airplane();
-        p.x = Math.random() * (canvas?.width || 800);
-        planes.push(p);
-      }
-    };
-
-    const animate = (time: number) => {
-      if (!ctx || !canvas) return;
-
-      if (time - lastCollisionTime > 12000 + Math.random() * 8000) {
-        const collisionY = Math.random() * (canvas.height * 0.4) + canvas.height * 0.3;
-        planes.push(new Airplane(true, collisionY, 1));
-        planes.push(new Airplane(true, collisionY, -1));
-        lastCollisionTime = time;
-      }
-
-      if (gradient) {
-        ctx.fillStyle = gradient;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-      }
-
-      ctx.save();
-      if (shakeAmount > 0.1) {
-        ctx.translate(Math.random() * shakeAmount - shakeAmount / 2, Math.random() * shakeAmount - shakeAmount / 2);
-        shakeAmount *= 0.88;
-      } else {
-        shakeAmount = 0;
-      }
-
-      planes = planes.filter(p => !p.hasExploded);
-      for (const p of planes) {
-        p.update();
-        p.draw();
-      }
-
-      const smokeItems = explosions.filter(e => e.life > 0 && (!(e instanceof ExplosionParticle) || e.type === 'smoke'));
-      const fireItems = explosions.filter(e => e.life > 0 && e instanceof ExplosionParticle && e.type !== 'smoke');
-
-      ctx.globalCompositeOperation = 'source-over';
-      for (const e of smokeItems) { e.update(); e.draw(); }
-
-      ctx.globalCompositeOperation = 'lighter';
-      for (const e of fireItems) { e.update(); e.draw(); }
-
-      ctx.globalCompositeOperation = 'source-over';
-      explosions = explosions.filter(e => (e as any).life > 0);
-
-      ctx.restore();
-
-      if (flashAlpha > 0.01) {
-        ctx.fillStyle = `rgba(255, 255, 255, ${flashAlpha})`;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        flashAlpha *= 0.65;
-      } else {
-        flashAlpha = 0;
-      }
-
-      animationFrameId = requestAnimationFrame(animate);
-    };
-
-    window.addEventListener('resize', () => {
-      resizeCanvas();
-      init();
-    });
-
-    resizeCanvas();
-    init();
-    animationFrameId = requestAnimationFrame(animate);
+    render();
 
     return () => {
-      window.removeEventListener('resize', resizeCanvas);
+      window.removeEventListener('resize', resize);
+      window.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -281,10 +173,9 @@ const AnimatedBackground = () => {
         left: 0,
         width: '100vw',
         height: '100vh',
-        zIndex: -1,
+        zIndex: 0,
         pointerEvents: 'none',
-        background: '#000811',
-        willChange: 'transform'
+        background: '#050814'
       }}
     />
   );

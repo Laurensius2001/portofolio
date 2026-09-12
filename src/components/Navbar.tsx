@@ -2,16 +2,35 @@ import { useState, useEffect } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 
 const Navbar = () => {
-  const { t } = useLanguage();
+  const { t, language, setLanguage } = useLanguage();
   const [scrolled, setScrolled] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 960);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20);
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 25);
 
-    window.addEventListener('scroll', handleScroll);
+      // Simple active section detector
+      const sections = ['home', 'about', 'services', 'experience', 'education', 'skills', 'project', 'contact'];
+      const scrollPosition = window.scrollY + 200;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const el = document.getElementById(sections[i]);
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 960);
+      if (window.innerWidth > 960) setIsMenuOpen(false);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('resize', handleResize);
 
     return () => {
@@ -20,145 +39,291 @@ const Navbar = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMenuOpen]);
+
   const navItems = [
-    { label: t('nav.home'), id: 'home' },
-    { label: t('nav.about'), id: 'about' },
-    { label: t('nav.services'), id: 'services' },
-    { label: t('nav.education'), id: 'education' },
-    { label: t('nav.experience'), id: 'experience' },
-    { label: t('nav.skills'), id: 'skills' },
-    { label: t('nav.projects'), id: 'project' }
+    { label: t<string>('nav.home'), id: 'home' },
+    { label: t<string>('nav.about'), id: 'about' },
+    { label: t<string>('nav.services'), id: 'services' },
+    { label: t<string>('nav.experience'), id: 'experience' },
+    { label: t<string>('nav.education'), id: 'education' },
+    { label: t<string>('nav.skills'), id: 'skills' },
+    { label: t<string>('nav.projects'), id: 'project' },
+    { label: t<string>('nav.contact'), id: 'contact' }
+  ];
+
+  const socialLinks = [
+    {
+      name: 'LinkedIn',
+      url: 'https://id.linkedin.com/in/laurensius-suban-a99732264',
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+          <rect width="4" height="12" x="2" y="9" />
+          <circle cx="4" cy="4" r="2" />
+        </svg>
+      )
+    },
+    {
+      name: 'WhatsApp',
+      url: 'https://wa.me/6281337383282',
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9l4.7-1.3-1.3 4.7z" />
+          <path d="M12 8l4 6-2 1-4-6" />
+        </svg>
+      )
+    },
+    {
+      name: 'Instagram',
+      url: 'https://www.instagram.com/llaurensz?igsh=b3g2M2tlc3Z3aGp6&utm_source=qr',
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+          <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+          <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+        </svg>
+      )
+    },
+    {
+      name: 'Twitter / X',
+      url: 'https://x.com/kuduasik217804?s=21',
+      icon: (
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+        </svg>
+      )
+    }
   ];
 
   return (
     <>
-      <nav
+      <header
         style={{
           position: 'fixed',
-          top: 0,
+          top: scrolled ? (isMobile ? '10px' : '14px') : (isMobile ? '16px' : '20px'),
           left: 0,
           width: '100%',
-          padding: isMobile ? (scrolled ? '12px 15px' : '20px 15px') : (scrolled ? '15px 0' : '25px 0'),
           display: 'flex',
-          alignItems: 'center',
           justifyContent: 'center',
+          alignItems: 'center',
           zIndex: 1000,
-          background: scrolled ? 'rgba(0, 8, 17, 0.85)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(15px)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
-          transition: 'all 0.3s ease-in-out'
+          pointerEvents: 'none',
+          opacity: isMenuOpen ? 0 : 1,
+          visibility: isMenuOpen ? 'hidden' : 'visible',
+          padding: isMobile ? '0 14px' : '0 24px',
+          boxSizing: 'border-box',
+          transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
-        <div className="container" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', position: 'relative' }}>
-
-          {/* Logo */}
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <div style={{
-              background: 'var(--primary)',
-              padding: isMobile ? '6px 10px' : '8px 12px',
-              borderRadius: '8px',
-              boxShadow: '0 0 15px var(--primary-glow)',
+        <div
+          className="navbar-pill"
+          style={{
+            pointerEvents: 'auto',
+            width: '100%',
+            maxWidth: isMobile ? '100%' : '1100px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: isMobile ? '0' : '6px 10px 6px 12px',
+            borderRadius: isMobile ? '0' : 'var(--radius-full)',
+            background: isMobile
+              ? 'transparent'
+              : (scrolled ? 'rgba(7, 12, 26, 0.88)' : 'rgba(7, 12, 26, 0.5)'),
+            backdropFilter: isMobile ? 'none' : 'blur(20px)',
+            WebkitBackdropFilter: isMobile ? 'none' : 'blur(20px)',
+            border: isMobile
+              ? 'none'
+              : (scrolled ? '1px solid rgba(0, 180, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.08)'),
+            boxShadow: isMobile
+              ? 'none'
+              : (scrolled
+                ? '0 16px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px -5px rgba(0, 180, 255, 0.18)'
+                : '0 8px 24px -8px rgba(0, 0, 0, 0.5)'),
+            transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
+          }}
+        >
+          {/* Brand Logo - Just the LA Icon */}
+          <a
+            href="#home"
+            aria-label="Lorens Adonara - Home"
+            style={{
               display: 'flex',
               alignItems: 'center',
-              justifyContent: 'center'
-            }}>
-              <span style={{ color: 'white', fontWeight: '900', fontSize: isMobile ? '16px' : '20px', fontFamily: 'Outfit', lineHeight: 1 }}>LD</span>
+              textDecoration: 'none',
+              flexShrink: 0
+            }}
+          >
+            <div
+              style={{
+                width: '38px',
+                height: '38px',
+                borderRadius: '12px',
+                background: 'linear-gradient(135deg, #00b4ff 0%, #0077b6 100%)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                boxShadow: '0 0 16px -2px rgba(0, 180, 255, 0.5)',
+                position: 'relative',
+                transition: 'transform 0.2s ease'
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.06)')}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
+            >
+              <span style={{ color: '#ffffff', fontWeight: '900', fontSize: '16px', fontFamily: 'var(--font-heading)' }}>
+                LA
+              </span>
+              <span
+                style={{
+                  position: 'absolute',
+                  top: '-1px',
+                  right: '-1px',
+                  width: '8px',
+                  height: '8px',
+                  borderRadius: '50%',
+                  background: 'var(--accent-emerald)',
+                  boxShadow: '0 0 8px var(--accent-emerald)'
+                }}
+              />
             </div>
-          </div>
+          </a>
 
-          {/* Desktop Links */}
+          {/* Desktop Navigation */}
           {!isMobile && (
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+            <nav
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '2px'
+              }}
+            >
               {navItems.map((item) => (
                 <a
                   key={item.id}
                   href={`#${item.id}`}
-                  className={`nav-link ${item.id === 'home' ? 'active' : ''}`}
+                  className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                  style={{
+                    padding: '6px 12px',
+                    fontSize: '13.5px'
+                  }}
                 >
                   {item.label}
                 </a>
               ))}
-            </div>
+            </nav>
           )}
 
-          {/* Social Icons (Desktop) & Hamburger (Mobile) */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
+          {/* Right Actions: Socials + Language Switcher + Hamburger */}
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
             {!isMobile && (
-              <div style={{ display: 'flex', gap: '10px' }}>
-                {[
-                  { name: 'instagram', url: 'https://www.instagram.com/llaurensz?igsh=b3g2M2tlc3Z3aGp6&utm_source=qr' },
-                  { name: 'linkedin', url: 'https://id.linkedin.com/in/laurensius-suban-a99732264' },
-                  { name: 'twitter', url: 'https://x.com/kuduasik217804?s=21' },
-                  { name: 'facebook', url: 'https://www.facebook.com/share/1BoS2k3fEF/?mibextid=wwXIfr' },
-                  { name: 'whatsapp', url: 'https://wa.me/6281337383282' }
-                ].map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-icon"
-                    style={{
-                      width: '36px',
-                      height: '36px',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--text-main)'
-                    }}
-                  >
-                    <span style={{ display: 'flex', transform: 'scale(0.85)' }}>
-                      {social.name === 'instagram' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>}
-                      {social.name === 'linkedin' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>}
-                      {social.name === 'twitter' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>}
-                      {social.name === 'facebook' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>}
-                      {social.name === 'whatsapp' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9l4.7-1.3-1.3 4.7z" /><path d="M12 8l4 6-2 1-4-6" /></svg>}
-                    </span>
-                  </a>
-                ))}
-              </div>
+              <>
+                <button
+                  onClick={() => setLanguage(language === 'en' ? 'id' : 'en')}
+                  aria-label="Toggle language"
+                  style={{
+                    background: 'rgba(255, 255, 255, 0.05)',
+                    border: '1px solid rgba(255, 255, 255, 0.1)',
+                    borderRadius: 'var(--radius-full)',
+                    padding: '6px 12px',
+                    color: 'var(--text-main)',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '5px',
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--primary)')}
+                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)')}
+                >
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="2" y1="12" x2="22" y2="12" />
+                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                  </svg>
+                  <span>{language.toUpperCase()}</span>
+                </button>
+
+                <div style={{ display: 'flex', gap: '4px' }}>
+                  {socialLinks.slice(0, 2).map((social) => (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="social-icon-btn"
+                      title={social.name}
+                      style={{ width: '34px', height: '34px', borderRadius: '50%' }}
+                    >
+                      {social.icon}
+                    </a>
+                  ))}
+                </div>
+              </>
             )}
 
             {isMobile && (
               <button
-                onClick={() => setIsMenuOpen(true)}
-                className="menu-toggle"
+                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label="Toggle Navigation Menu"
                 style={{
-                  width: '44px',
-                  height: '44px',
-                  background: 'var(--primary)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '50%',
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '12px',
+                  background: 'rgba(11, 18, 34, 0.85)',
+                  border: '1px solid rgba(255, 255, 255, 0.14)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4)',
+                  color: '#ffffff',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  boxShadow: '0 4px 15px var(--primary-glow)',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
                 }}
               >
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" x2="21" y1="12" y2="12" /><line x1="3" x2="21" y1="6" y2="6" /><line x1="3" x2="21" y1="18" y2="18" /></svg>
+                {isMenuOpen ? (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                ) : (
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="4" y1="7" x2="20" y2="7" />
+                    <line x1="4" y1="12" x2="20" y2="12" />
+                    <line x1="4" y1="17" x2="20" y2="17" />
+                  </svg>
+                )}
               </button>
             )}
           </div>
         </div>
-      </nav>
+      </header>
 
-      {/* Mobile Menu Drawer Overlay */}
+      {/* Mobile Drawer Navigation */}
       <div
         style={{
           position: 'fixed',
-          top: 0,
-          right: 0,
-          width: '100%',
-          height: '100vh',
-          background: 'rgba(0, 0, 0, 0.7)',
+          inset: 0,
+          background: 'rgba(5, 8, 20, 0.85)',
+          backdropFilter: 'blur(16px)',
+          WebkitBackdropFilter: 'blur(16px)',
           zIndex: 2000,
           visibility: isMenuOpen ? 'visible' : 'hidden',
           opacity: isMenuOpen ? 1 : 0,
-          transition: 'all 0.4s ease'
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
+          pointerEvents: isMenuOpen ? 'auto' : 'none'
         }}
         onClick={() => setIsMenuOpen(false)}
       >
@@ -167,113 +332,150 @@ const Navbar = () => {
             position: 'absolute',
             top: 0,
             right: 0,
-            width: '320px',
-            maxWidth: '85%',
+            width: '100%',
+            maxWidth: '340px',
             height: '100%',
-            background: '#0a101e',
-            padding: '30px',
+            background: '#070c1a',
+            borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+            padding: '24px 20px',
             display: 'flex',
             flexDirection: 'column',
             transform: isMenuOpen ? 'translateX(0)' : 'translateX(100%)',
-            transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-            boxShadow: '-10px 0 30px rgba(0,0,0,0.5)'
+            transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
+            boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.8)'
           }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Header */}
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '40px' }}>
-            <div style={{ display: 'flex', alignItems: 'center' }}>
-              <div style={{
-                background: 'var(--primary)',
-                padding: '6px 10px',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <span style={{ color: 'white', fontWeight: '900', fontSize: '16px', fontFamily: 'Outfit', lineHeight: 1 }}>LD</span>
+          {/* Drawer Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '28px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <div
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  borderRadius: '10px',
+                  background: 'linear-gradient(135deg, #00b4ff 0%, #0077b6 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#ffffff',
+                  fontWeight: '900',
+                  fontSize: '16px',
+                  fontFamily: 'var(--font-heading)'
+                }}
+              >
+                LA
               </div>
+              <span style={{ fontWeight: '800', fontSize: '15px', color: '#ffffff', letterSpacing: '-0.01em' }}>
+                Navigation
+              </span>
             </div>
+
             <button
               onClick={() => setIsMenuOpen(false)}
+              aria-label="Close navigation menu"
               style={{
-                width: '40px',
-                height: '40px',
-                borderRadius: '50%',
-                background: 'rgba(255,255,255,0.05)',
-                border: 'none',
-                color: 'white',
+                width: '38px',
+                height: '38px',
+                borderRadius: '10px',
+                background: 'rgba(255, 255, 255, 0.08)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#ffffff',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
-                justifyContent: 'center'
+                justifyContent: 'center',
+                transition: 'all 0.2s ease'
               }}
             >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
             </button>
           </div>
 
           {/* Links */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '6px' }}>
             {navItems.map((item) => (
               <a
                 key={item.id}
                 href={`#${item.id}`}
                 onClick={() => setIsMenuOpen(false)}
                 style={{
-                  padding: '12px 0',
-                  color: item.id === 'home' ? 'var(--primary)' : 'rgba(255,255,255,0.7)',
-                  textDecoration: 'none',
-                  fontSize: '16px',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '1px',
-                  borderBottom: '1px solid rgba(255,255,255,0.05)',
-                  transition: 'color 0.3s ease'
+                  padding: '12px 16px',
+                  borderRadius: '10px',
+                  color: activeSection === item.id ? 'var(--primary)' : 'var(--text-secondary)',
+                  background: activeSection === item.id ? 'rgba(0, 180, 255, 0.1)' : 'transparent',
+                  fontWeight: '600',
+                  fontSize: '15px',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between'
                 }}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {activeSection === item.id && (
+                  <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--primary)' }} />
+                )}
               </a>
             ))}
           </div>
 
-          {/* Footer Socials */}
-          <div style={{ marginTop: 'auto', paddingTop: '40px' }}>
-            <p style={{ color: 'white', fontSize: '11px', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '2px', marginBottom: '20px', opacity: 0.6 }}>
-              {t('common.findMe')}
-            </p>
-            <div style={{ display: 'flex', gap: '12px' }}>
-              {[
-                { name: 'instagram', url: 'https://www.instagram.com/llaurensz?igsh=b3g2M2tlc3Z3aGp6&utm_source=qr' },
-                { name: 'linkedin', url: 'https://id.linkedin.com/in/laurensius-suban-a99732264' },
-                { name: 'twitter', url: 'https://x.com/kuduasik217804?s=21' },
-                { name: 'facebook', url: 'https://www.facebook.com/share/1BoS2k3fEF/?mibextid=wwXIfr' },
-                { name: 'whatsapp', url: 'https://wa.me/6281337383282' }
-              ].map((social) => (
+          {/* Language Switcher in Drawer */}
+          <div style={{ marginTop: 'auto', paddingTop: '24px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Language</span>
+              <div style={{ display: 'flex', gap: '6px' }}>
+                <button
+                  onClick={() => setLanguage('id')}
+                  style={{
+                    padding: '5px 12px',
+                    borderRadius: 'var(--radius-full)',
+                    border: '1px solid',
+                    borderColor: language === 'id' ? 'var(--primary)' : 'rgba(255, 255, 255, 0.1)',
+                    background: language === 'id' ? 'rgba(0, 180, 255, 0.15)' : 'transparent',
+                    color: language === 'id' ? 'var(--primary)' : 'var(--text-muted)',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    cursor: 'pointer'
+                  }}
+                >
+                  ID
+                </button>
+                <button
+                  onClick={() => setLanguage('en')}
+                  style={{
+                    padding: '5px 12px',
+                    borderRadius: 'var(--radius-full)',
+                    border: '1px solid',
+                    borderColor: language === 'en' ? 'var(--primary)' : 'rgba(255, 255, 255, 0.1)',
+                    background: language === 'en' ? 'rgba(0, 180, 255, 0.15)' : 'transparent',
+                    color: language === 'en' ? 'var(--primary)' : 'var(--text-muted)',
+                    fontSize: '12px',
+                    fontWeight: '700',
+                    cursor: 'pointer'
+                  }}
+                >
+                  EN
+                </button>
+              </div>
+            </div>
+
+            {/* Social Links */}
+            <div style={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+              {socialLinks.map((social) => (
                 <a
                   key={social.name}
                   href={social.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="social-icon"
-                  style={{
-                    width: '44px',
-                    height: '44px',
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    borderRadius: '10px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white'
-                  }}
+                  className="social-icon-btn"
+                  style={{ width: '40px', height: '40px' }}
+                  title={social.name}
                 >
-                  <span style={{ display: 'flex' }}>
-                    {social.name === 'instagram' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><line x1="17.5" x2="17.51" y1="6.5" y2="6.5" /></svg>}
-                    {social.name === 'linkedin' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" /><rect width="4" height="12" x="2" y="9" /><circle cx="4" cy="4" r="2" /></svg>}
-                    {social.name === 'twitter' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" /></svg>}
-                    {social.name === 'facebook' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" /></svg>}
-                    {social.name === 'whatsapp' && <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9l4.7-1.3-1.3 4.7z" /><path d="M12 8l4 6-2 1-4-6" /></svg>}
-                  </span>
+                  {social.icon}
                 </a>
               ))}
             </div>
