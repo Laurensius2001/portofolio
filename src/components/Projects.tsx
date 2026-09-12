@@ -64,20 +64,23 @@ const Projects = () => {
                 className="glass-card project-card"
               >
                 {/* Left Side: Details */}
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '100%', minWidth: 0, boxSizing: 'border-box' }}>
                   {/* Category Pill */}
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', maxWidth: '100%' }}>
                     <span
                       style={{
                         fontSize: '11px',
                         fontWeight: '700',
                         color: 'var(--primary)',
-                        letterSpacing: '0.1em',
+                        letterSpacing: '0.08em',
                         textTransform: 'uppercase',
                         padding: '4px 12px',
                         borderRadius: 'var(--radius-full)',
                         background: 'rgba(0, 180, 255, 0.1)',
-                        border: '1px solid rgba(0, 180, 255, 0.25)'
+                        border: '1px solid rgba(0, 180, 255, 0.25)',
+                        maxWidth: '100%',
+                        wordBreak: 'break-word',
+                        lineHeight: 1.4
                       }}
                     >
                       {project.category}
@@ -87,11 +90,13 @@ const Projects = () => {
                   {/* Title */}
                   <h3
                     style={{
-                      fontSize: 'clamp(22px, 2.4vw, 30px)',
+                      fontSize: 'clamp(20px, 2.4vw, 28px)',
                       fontWeight: '800',
                       color: '#ffffff',
                       lineHeight: 1.25,
-                      letterSpacing: '-0.02em'
+                      letterSpacing: '-0.02em',
+                      wordBreak: 'break-word',
+                      overflowWrap: 'break-word'
                     }}
                   >
                     {project.title}
@@ -100,9 +105,11 @@ const Projects = () => {
                   {/* Description */}
                   <p
                     style={{
-                      fontSize: '15px',
+                      fontSize: '14.5px',
                       color: 'var(--text-secondary)',
-                      lineHeight: 1.65
+                      lineHeight: 1.65,
+                      wordBreak: 'break-word',
+                      overflowWrap: 'break-word'
                     }}
                   >
                     {project.description}
@@ -110,9 +117,9 @@ const Projects = () => {
 
                   {/* Feature Highlights */}
                   {project.highlights && project.highlights.length > 0 && (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '4px 0 8px 0' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '4px 0 8px 0', width: '100%' }}>
                       {project.highlights.map((item: string, hIdx: number) => (
-                        <div key={hIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
+                        <div key={hIdx} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px', width: '100%' }}>
                           <svg
                             width="16"
                             height="16"
@@ -126,7 +133,7 @@ const Projects = () => {
                           >
                             <polyline points="20 6 9 17 4 12" />
                           </svg>
-                          <span style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5 }}>
+                          <span style={{ fontSize: '13px', color: 'var(--text-muted)', lineHeight: 1.5, wordBreak: 'break-word', overflowWrap: 'break-word', flex: 1, minWidth: 0 }}>
                             {item}
                           </span>
                         </div>
@@ -135,9 +142,9 @@ const Projects = () => {
                   )}
 
                   {/* Tech Stack Pills */}
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', margin: '8px 0' }}>
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', margin: '8px 0', maxWidth: '100%' }}>
                     {project.tags.map((tag: string, tIdx: number) => (
-                      <span key={tIdx} className="tech-pill">
+                      <span key={tIdx} className="tech-pill" style={{ maxWidth: '100%', wordBreak: 'break-word' }}>
                         {tag}
                       </span>
                     ))}
@@ -185,9 +192,9 @@ const Projects = () => {
                 </div>
 
                 {/* Right Side: Visual Showcase */}
-                <div>
+                <div style={{ width: '100%', minWidth: 0, boxSizing: 'border-box' }}>
                   {hasImages ? (
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', width: '100%', minWidth: 0 }}>
                       {/* Main Featured Image Box */}
                       <div
                         onClick={() => currentImg && setActiveImage(currentImg)}
@@ -199,7 +206,9 @@ const Projects = () => {
                           border: '1px solid rgba(255, 255, 255, 0.12)',
                           position: 'relative',
                           cursor: 'zoom-in',
-                          boxShadow: '0 15px 35px -10px rgba(0, 0, 0, 0.7)'
+                          boxShadow: '0 15px 35px -10px rgba(0, 0, 0, 0.7)',
+                          width: '100%',
+                          boxSizing: 'border-box'
                         }}
                       >
                         {currentImg && (
@@ -248,7 +257,17 @@ const Projects = () => {
 
                       {/* Thumbnails Row */}
                       {images.length > 1 && (
-                        <div style={{ display: 'flex', gap: '10px' }}>
+                        <div
+                          style={{
+                            display: 'flex',
+                            gap: '8px',
+                            overflowX: 'auto',
+                            maxWidth: '100%',
+                            paddingBottom: '4px',
+                            WebkitOverflowScrolling: 'touch',
+                            boxSizing: 'border-box'
+                          }}
+                        >
                           {images.map((img: string, i: number) => {
                             const isSelected = i === currentImgIndex;
                             return (
@@ -256,12 +275,13 @@ const Projects = () => {
                                 key={i}
                                 onClick={() => setSelectedImages((prev) => ({ ...prev, [index]: i }))}
                                 style={{
-                                  width: '64px',
-                                  height: '44px',
+                                  width: '56px',
+                                  height: '38px',
+                                  flexShrink: 0,
                                   borderRadius: '8px',
                                   overflow: 'hidden',
                                   cursor: 'pointer',
-                                  border: isSelected ? '2px solid var(--primary)' : '1px solid rgba(255, 255, 255, 0.1)',
+                                  border: isSelected ? '2px solid var(--primary)' : '1px solid rgba(255, 255, 255, 0.12)',
                                   opacity: isSelected ? 1 : 0.6,
                                   transition: 'all 0.2s ease',
                                   background: '#090e1a'
