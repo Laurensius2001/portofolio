@@ -266,6 +266,25 @@ const translations = {
           ]
         },
         {
+          title: 'Chata Nail Art & Studio - Online Booking Engine & Salon Management System',
+          category: 'Salon Booking & Studio Management Platform',
+          description: 'A full-stack appointment booking and beauty salon management web platform built with Laravel 12 and Tailwind CSS. Features an intelligent Real-Time Slot Engine with anti-double-booking protection based on treatment duration, automated 1-click WhatsApp instant communication templates, friction-free client reservation without mandatory login, and an administrative studio dashboard for real-time calendar schedules, revenue tracking, and service catalog management.',
+          tags: ['Laravel 12', 'Tailwind CSS', 'Blade', 'Vite', 'Slot Engine', 'WhatsApp Automation', 'Full-Stack'],
+          highlights: [
+            'Real-Time Slot Engine with anti-double-booking protection based on service duration',
+            'Automated 1-click WhatsApp instant customer communication (Confirmation, Reschedule & Thank You)',
+            'Comprehensive Studio Admin Dashboard with daily schedule monitoring, revenue analytics & service catalog'
+          ],
+          link: null,
+          images: [
+            '/projects/chata-landing.png',
+            '/projects/chata-1.png',
+            '/projects/chata-2.png',
+            '/projects/chata-3.png',
+            '/projects/chata-4.png'
+          ]
+        },
+        {
           title: 'Internet Customer Complaint & Billing System (BTS Sodong Net)',
           category: 'ISP Management & Information System',
           description: 'A comprehensive full-stack operations management and customer service ticketing system engineered for BUMDes Tirta Sejahtera internet division. Features real-time ticket progression (Pending -> In Progress -> Resolved), bandwidth package management, active subscriber monitoring, and automated POS thermal receipt generation.',
@@ -591,6 +610,25 @@ const translations = {
             '/projects/srimart-3.png',
             '/projects/srimart-4.png',
             '/projects/srimart-5.png'
+          ]
+        },
+        {
+          title: 'Chata Nail Art & Studio - Sistem Reservasi Online & Manajemen Salon',
+          category: 'Sistem Reservasi & Manajemen Salon Kecantikan',
+          description: 'Platform aplikasi web reservasi jadwal dan manajemen operasional studio seni kuku (nail art) yang dibangun secara full-stack dengan Laravel 12 dan Tailwind CSS. Dilengkapi Real-Time Slot Engine dengan garansi anti-double-booking berbasis durasi perawatan kuku, integrasi komunikasi WhatsApp instan 1-klik dengan template pesan otomatis (konfirmasi, penolakan, dan terima kasih), formulir booking interaktif tanpa registrasi akun, serta dashboard manajemen studio untuk pemantauan antrean reservasi harian, jadwal kalender, estimasi omset, dan riwayat pelanggan.',
+          tags: ['Laravel 12', 'Tailwind CSS', 'Blade', 'Vite', 'Slot Engine', 'Otomasi WhatsApp', 'Full-Stack'],
+          highlights: [
+            'Engine alokasi slot waktu real-time dengan garansi anti-bentrok jadwal berbasis durasi treatment',
+            'Otomasi komunikasi pelanggan via WhatsApp instan 1-klik (Konfirmasi booking, reschedule & notifikasi)',
+            'Dashboard Admin Chata Studio terpadu untuk monitoring jadwal kalender, katalog layanan & omset'
+          ],
+          link: null,
+          images: [
+            '/projects/chata-landing.png',
+            '/projects/chata-1.png',
+            '/projects/chata-2.png',
+            '/projects/chata-3.png',
+            '/projects/chata-4.png'
           ]
         },
         {

@@ -8,7 +8,9 @@ const Projects = () => {
   const [selectedImages, setSelectedImages] = useState<{ [key: number]: number }>({
     0: 0,
     1: 0,
-    2: 0
+    2: 0,
+    3: 0,
+    4: 0
   });
 
   useEffect(() => {
@@ -219,6 +221,7 @@ const Projects = () => {
                               width: '100%',
                               height: '100%',
                               objectFit: 'cover',
+                              objectPosition: 'top',
                               transition: 'transform 0.4s ease'
                             }}
                             onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.03)')}
