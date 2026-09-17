@@ -198,81 +198,116 @@ const Navbar = () => {
           </a>
 
           {/* Desktop Navigation */}
-          {!isMobile && (
-            <nav
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '2px'
-              }}
-            >
-              {navItems.map((item) => (
-                <a
-                  key={item.id}
-                  href={`#${item.id}`}
-                  className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
-                  style={{
-                    padding: '6px 12px',
-                    fontSize: '13.5px'
-                  }}
-                >
-                  {item.label}
-                </a>
-              ))}
-            </nav>
-          )}
+          <nav
+            className="desktop-only"
+            style={{
+              alignItems: 'center',
+              gap: '2px'
+            }}
+          >
+            {navItems.map((item) => (
+              <a
+                key={item.id}
+                href={`#${item.id}`}
+                className={`nav-link ${activeSection === item.id ? 'active' : ''}`}
+                style={{
+                  padding: '6px 12px',
+                  fontSize: '13.5px'
+                }}
+              >
+                {item.label}
+              </a>
+            ))}
+          </nav>
 
           {/* Right Actions: Socials + Language Switcher + Hamburger */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
-            {!isMobile && (
-              <>
-                <button
-                  onClick={() => setLanguage(language === 'en' ? 'id' : 'en')}
-                  aria-label="Toggle language"
-                  style={{
-                    background: 'rgba(255, 255, 255, 0.05)',
-                    border: '1px solid rgba(255, 255, 255, 0.1)',
-                    borderRadius: 'var(--radius-full)',
-                    padding: '6px 12px',
-                    color: 'var(--text-main)',
-                    fontSize: '12px',
-                    fontWeight: '700',
-                    cursor: 'pointer',
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '5px',
-                    transition: 'all 0.2s ease'
-                  }}
-                  onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--primary)')}
-                  onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)')}
-                >
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <circle cx="12" cy="12" r="10" />
-                    <line x1="2" y1="12" x2="22" y2="12" />
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                  </svg>
-                  <span>{language.toUpperCase()}</span>
-                </button>
+            {/* Desktop Actions */}
+            <div className="desktop-only" style={{ alignItems: 'center', gap: '8px' }}>
+              <button
+                onClick={() => setLanguage(language === 'en' ? 'id' : 'en')}
+                aria-label="Toggle language"
+                style={{
+                  background: 'rgba(255, 255, 255, 0.05)',
+                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  borderRadius: 'var(--radius-full)',
+                  padding: '6px 12px',
+                  color: 'var(--text-main)',
+                  fontSize: '12px',
+                  fontWeight: '700',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '5px',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--primary)')}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)')}
+              >
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+                <span>{language.toUpperCase()}</span>
+              </button>
 
-                <div style={{ display: 'flex', gap: '4px' }}>
-                  {socialLinks.slice(0, 2).map((social) => (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="social-icon-btn"
-                      title={social.name}
-                      style={{ width: '34px', height: '34px', borderRadius: '50%' }}
-                    >
-                      {social.icon}
-                    </a>
-                  ))}
-                </div>
-              </>
-            )}
+              <div style={{ display: 'flex', gap: '4px' }}>
+                {socialLinks.slice(0, 2).map((social) => (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon-btn"
+                    title={social.name}
+                    style={{ width: '34px', height: '34px', borderRadius: '50%' }}
+                  >
+                    {social.icon}
+                  </a>
+                ))}
+              </div>
+            </div>
 
-            {isMobile && (
+            {/* Mobile Actions: Language Switcher + Hamburger */}
+            <div className="mobile-only" style={{ alignItems: 'center', gap: '8px' }}>
+              {/* Language Switcher in Mobile Topbar (Left of Hamburger) */}
+              <button
+                onClick={() => setLanguage(language === 'en' ? 'id' : 'en')}
+                aria-label="Ganti Bahasa (ID / EN)"
+                title="Ganti Bahasa (ID / EN)"
+                style={{
+                  height: '40px',
+                  padding: '0 12px',
+                  borderRadius: '12px',
+                  background: 'rgba(11, 18, 34, 0.85)',
+                  border: '1px solid rgba(0, 180, 255, 0.35)',
+                  backdropFilter: 'blur(12px)',
+                  WebkitBackdropFilter: 'blur(12px)',
+                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4), 0 0 10px -2px var(--primary-glow)',
+                  color: '#ffffff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '6px',
+                  cursor: 'pointer',
+                  fontSize: '12px',
+                  fontWeight: '800',
+                  transition: 'all 0.2s ease'
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--primary)')}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(0, 180, 255, 0.35)')}
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10" />
+                  <line x1="2" y1="12" x2="22" y2="12" />
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z" />
+                </svg>
+                <span style={{ color: 'var(--primary)', letterSpacing: '0.04em' }}>
+                  {language.toUpperCase()}
+                </span>
+              </button>
+
+              {/* Hamburger Button */}
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 aria-label="Toggle Navigation Menu"
@@ -306,7 +341,7 @@ const Navbar = () => {
                   </svg>
                 )}
               </button>
-            )}
+            </div>
           </div>
         </div>
       </header>
