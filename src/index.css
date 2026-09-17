@@ -562,3 +562,401 @@ a {
     height: 42px;
   }
 }
+
+/* Experience Collapse & Timeline Animation */
+@keyframes exp-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.exp-item-animated {
+  animation: exp-fade-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.exp-collapse-btn {
+  width: 100%;
+  border: 1px dashed rgba(0, 180, 255, 0.4);
+  background: linear-gradient(135deg, rgba(0, 180, 255, 0.06) 0%, rgba(15, 23, 42, 0.75) 100%);
+  padding: 18px 24px;
+  border-radius: var(--radius-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-align: left;
+}
+
+.exp-collapse-btn:hover {
+  border-color: var(--primary);
+  border-style: solid;
+  background: linear-gradient(135deg, rgba(0, 180, 255, 0.12) 0%, rgba(15, 23, 42, 0.9) 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -8px rgba(0, 180, 255, 0.25), 0 0 15px -3px var(--primary-glow);
+}
+
+.exp-collapse-btn:active {
+  transform: translateY(0);
+}
+
+.exp-collapse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 180, 255, 0.15);
+  border: 1px solid rgba(0, 180, 255, 0.35);
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  .exp-collapse-btn {
+    padding: 14px 16px;
+    gap: 10px;
+  }
+}
+
+/* Hero Editorial & Mockup-Inspired Styles */
+.hero-giant-bg {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  width: 100%;
+  padding: 0 32px;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  user-select: none;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 0 50px rgba(0, 180, 255, 0.35));
+}
+
+.hero-giant-char {
+  font-family: 'Bebas Neue', var(--font-heading), sans-serif;
+  font-size: clamp(75px, 14vw, 190px);
+  font-weight: 900;
+  line-height: 0.85;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.75) 0%, rgba(0, 180, 255, 0.92) 50%, rgba(56, 189, 248, 0.75) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  opacity: 0.72;
+  transform: scale(1, 1.35);
+  transform-origin: center top;
+  display: inline-block;
+}
+
+.hero-editorial-layout {
+  display: grid;
+  grid-template-columns: minmax(310px, 1.25fr) minmax(320px, 1fr) minmax(280px, 1.15fr);
+  align-items: flex-end;
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+  width: 100%;
+}
+
+.hero-left {
+  text-align: left;
+  z-index: 10;
+  align-self: flex-end;
+  padding-bottom: 20px;
+  padding-top: clamp(150px, 16vw, 230px);
+}
+
+.hero-main-title {
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+
+.hero-name-line {
+  display: block;
+  color: var(--text-main);
+  font-size: clamp(24px, 2.4vw, 34px);
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.hero-role-line {
+  display: block;
+  font-size: clamp(18px, 1.8vw, 24px);
+  margin-top: 6px;
+  min-height: 1.35em;
+}
+
+.hero-desc {
+  color: var(--text-muted);
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 28px;
+  max-width: 400px;
+}
+
+.hero-right {
+  align-self: flex-end;
+  padding-bottom: 20px;
+  padding-top: clamp(150px, 16vw, 230px);
+}
+
+.hero-center {
+  align-self: flex-end;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.hero-avatar-glow {
+  position: absolute;
+  top: 46%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 180, 255, 0.22) 0%, rgba(99, 102, 241, 0.09) 45%, transparent 70%);
+  filter: blur(45px);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Cutout Portrait (Frameless & Seamless with Background) */
+.hero-cutout-wrapper {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin: 0 auto;
+}
+
+
+.hero-cutout-img {
+  width: 100%;
+  max-width: 375px;
+  height: auto;
+  max-height: 520px;
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.85));
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  pointer-events: auto;
+  display: block;
+}
+
+.hero-cutout-wrapper:hover .hero-cutout-img {
+  transform: translateY(-4px) scale(1.02);
+  filter: drop-shadow(0 20px 38px rgba(0, 0, 0, 0.95));
+}
+
+.hero-stat-card {
+  padding: 16px 20px;
+  border-radius: var(--radius-lg);
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.hero-stat-card:hover {
+  border-color: rgba(0, 180, 255, 0.4);
+  background: rgba(15, 23, 42, 0.85);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6), 0 0 15px -3px var(--primary-glow);
+}
+
+@media (max-width: 1080px) {
+  #home {
+    padding-top: 100px !important;
+    padding-bottom: 60px !important;
+  }
+
+  /* Tulisan PORTOFOLIO di bawah/tepat di bahu foto & dibikin lebih tinggi */
+  .hero-giant-bg {
+    top: 95px;
+    padding: 0 20px;
+    z-index: 1;
+  }
+
+  .hero-giant-char {
+    font-size: clamp(48px, 12.8vw, 84px);
+    transform: scale(1, 1.75);
+    transform-origin: center center;
+    line-height: 0.82;
+  }
+
+  .hero-editorial-layout {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 28px;
+    padding-top: 0;
+  }
+
+  /* 1. Foto nimpah tulisan PORTOFOLIO di posisi paling atas */
+  .hero-center {
+    order: 1;
+    position: relative;
+    z-index: 5;
+    margin-top: 15px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    width: 100%;
+  }
+
+  /* Ukuran foto di mobile dikecilkan */
+  .hero-cutout-wrapper {
+    max-width: 215px;
+    margin: 0 auto;
+  }
+
+  .hero-cutout-img {
+    max-width: 215px;
+    max-height: 320px;
+    height: auto;
+  }
+
+  .hero-avatar-glow {
+    width: 320px !important;
+    height: 320px !important;
+    background: radial-gradient(circle, rgba(0, 180, 255, 0.22) 0%, rgba(99, 102, 241, 0.08) 45%, transparent 70%) !important;
+    filter: blur(35px) !important;
+  }
+
+
+  .hero-tech-badge {
+    transform: scale(0.8);
+    transform-origin: center;
+  }
+
+  .hero-tech-badge-react {
+    left: -14px !important;
+    top: 14% !important;
+  }
+
+  .hero-tech-badge-node {
+    right: -14px !important;
+    bottom: 20% !important;
+  }
+
+  .hero-tech-badge-pg {
+    left: -8px !important;
+    bottom: 4% !important;
+  }
+
+  /* 2. Di bawah foto: Lorens Adonara, Role, Deskripsi, CTA */
+  .hero-left {
+    order: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+  }
+
+  .hero-main-title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 14px;
+  }
+
+  /* Lorens Adonara: DIEM rata tengah, tidak bergeser saat mengetik */
+  .hero-name-line {
+    width: 100%;
+    text-align: center;
+    display: block;
+    white-space: nowrap;
+    margin: 0 auto;
+  }
+
+  /* Tulisan role di bawahnya yang bergerak mengetik */
+  .hero-role-line {
+    width: 100%;
+    text-align: center;
+    display: block;
+    margin: 6px auto 0 auto;
+    min-height: 1.45em;
+  }
+
+  .hero-desc {
+    text-align: center;
+    max-width: 440px;
+    margin: 0 auto 24px auto;
+  }
+
+  .hero-cta-group {
+    justify-content: center !important;
+    width: 100%;
+  }
+
+  /* 3. Di bawah tombol CTA: Estetika Visual & Stat Cards */
+  .hero-right {
+    order: 3;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 16px;
+    padding-bottom: 0;
+    width: 100%;
+  }
+
+  .hero-right > div {
+    max-width: 420px;
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  #home {
+    padding-top: 92px !important;
+  }
+
+  .hero-giant-bg {
+    top: 85px;
+    padding: 0 16px;
+  }
+
+  .hero-giant-char {
+    font-size: clamp(40px, 12vw, 58px);
+    transform: scale(1, 1.7);
+    transform-origin: center center;
+  }
+
+  .hero-cutout-wrapper, .hero-cutout-img {
+    max-width: 195px;
+    max-height: 290px;
+  }
+
+  .hero-avatar-glow {
+    width: 280px !important;
+    height: 280px !important;
+  }
+
+  .hero-tech-badge {
+    transform: scale(0.74);
+  }
+}

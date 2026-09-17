@@ -25,6 +25,9 @@ const translations = {
       status: 'Available for New Projects & Roles',
       iam: 'HELLO, I AM',
       rolePrefix: 'a Senior ',
+      giantTitle: 'PORTFOLIO',
+      badgeYear: 'Portfolio 2026',
+      subheading: 'Visual Aesthetics & Modern Web Engineering',
       roles: ['Full-Stack Web Developer', 'Web System Builder', 'Backend & API Architect'],
       description: 'Over 5+ years engineering scalable web applications, robust backend architectures, and high-performance interfaces with modern, clean engineering practices.',
       button: 'Explore Works',
@@ -33,6 +36,16 @@ const translations = {
         { value: '5+', label: 'Years Experience' },
         { value: '10+', label: 'Systems & Apps' },
         { value: '100%', label: 'Production Quality' }
+      ],
+      ticker: [
+        'Full-Stack Web Development',
+        'Backend & REST API Architecture',
+        'Enterprise Web Systems',
+        'Shopify Liquid & E-Commerce',
+        'PostgreSQL & Modern Databases',
+        'Clean Code & High Performance',
+        'React.js & TypeScript',
+        'Cloud Infrastructure & Reliability'
       ]
     },
     about: {
@@ -97,6 +110,10 @@ const translations = {
     experience: {
       badge: 'Career Path',
       title: 'Work Experience',
+      showMore: 'View Previous Experience',
+      showMoreDesc: 'Explore earlier career roles (2019 – 2025)',
+      showLess: 'Show Less',
+      pastRolesHeading: 'Earlier Career History',
       items: [
         {
           period: 'Dec 2025 - Present',
@@ -372,6 +389,9 @@ const translations = {
       status: 'Tersedia untuk Proyek & Posisi Baru',
       iam: 'HALO, SAYA',
       rolePrefix: 'Senior ',
+      giantTitle: 'PORTOFOLIO',
+      badgeYear: 'Portofolio 2026',
+      subheading: 'Estetika Visual & Solusi Rekayasa Web Modern',
       roles: ['Pengembang Web Full-Stack', 'Pembangun Sistem Web', 'Arsitek Backend & API'],
       description: 'Lebih dari 5+ tahun membangun aplikasi web terukur, arsitektur backend tangguh, dan antarmuka performa tinggi dengan standar rekayasa modern yang bersih.',
       button: 'Lihat Portofolio',
@@ -380,6 +400,16 @@ const translations = {
         { value: '5+', label: 'Tahun Pengalaman' },
         { value: '10+', label: 'Sistem & Web App' },
         { value: '100%', label: 'Kualitas Produksi' }
+      ],
+      ticker: [
+        'Pengembangan Web Full-Stack',
+        'Arsitektur Backend & REST API',
+        'Sistem Web Enterprise',
+        'Shopify Liquid & E-Commerce',
+        'PostgreSQL & Basis Data Modern',
+        'Rekayasa Kode Bersih & Teruji',
+        'React.js & TypeScript',
+        'Infrastruktur Cloud & Keandalan'
       ]
     },
     about: {
@@ -444,6 +474,10 @@ const translations = {
     experience: {
       badge: 'Jejak Karier',
       title: 'Pengalaman Kerja',
+      showMore: 'Lihat Pengalaman Sebelumnya',
+      showMoreDesc: 'Jelajahi riwayat karier sebelumnya (2019 – 2025)',
+      showLess: 'Tampilkan Lebih Sedikit',
+      pastRolesHeading: 'Riwayat Karier Sebelumnya',
       items: [
         {
           period: 'Des 2025 - Sekarang',
