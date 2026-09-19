@@ -13,7 +13,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 25);
 
       // Simple active section detector
-      const sections = ['home', 'about', 'services', 'experience', 'education', 'skills', 'project', 'contact'];
+      const sections = ['home', 'project', 'skills', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -52,12 +52,8 @@ const Navbar = () => {
 
   const navItems = [
     { label: t<string>('nav.home'), id: 'home' },
-    { label: t<string>('nav.about'), id: 'about' },
-    { label: t<string>('nav.services'), id: 'services' },
-    { label: t<string>('nav.experience'), id: 'experience' },
-    { label: t<string>('nav.education'), id: 'education' },
-    { label: t<string>('nav.skills'), id: 'skills' },
     { label: t<string>('nav.projects'), id: 'project' },
+    { label: t<string>('nav.skills'), id: 'skills' },
     { label: t<string>('nav.contact'), id: 'contact' }
   ];
 
@@ -138,17 +134,17 @@ const Navbar = () => {
             borderRadius: isMobile ? '0' : 'var(--radius-full)',
             background: isMobile
               ? 'transparent'
-              : (scrolled ? 'rgba(7, 12, 26, 0.88)' : 'rgba(7, 12, 26, 0.5)'),
+              : (scrolled ? 'rgba(246, 244, 238, 0.94)' : 'rgba(246, 244, 238, 0.75)'),
             backdropFilter: isMobile ? 'none' : 'blur(20px)',
             WebkitBackdropFilter: isMobile ? 'none' : 'blur(20px)',
             border: isMobile
               ? 'none'
-              : (scrolled ? '1px solid rgba(0, 180, 255, 0.3)' : '1px solid rgba(255, 255, 255, 0.08)'),
+              : (scrolled ? '1px solid #E2DCD2' : '1px solid rgba(228, 223, 213, 0.7)'),
             boxShadow: isMobile
               ? 'none'
               : (scrolled
-                ? '0 16px 40px -10px rgba(0, 0, 0, 0.8), 0 0 25px -5px rgba(0, 180, 255, 0.18)'
-                : '0 8px 24px -8px rgba(0, 0, 0, 0.5)'),
+                ? '0 12px 32px -8px rgba(40, 30, 20, 0.08)'
+                : '0 4px 16px -6px rgba(40, 30, 20, 0.04)'),
             transition: 'all 0.35s cubic-bezier(0.16, 1, 0.3, 1)'
           }}
         >
@@ -168,18 +164,18 @@ const Navbar = () => {
                 width: '38px',
                 height: '38px',
                 borderRadius: '12px',
-                background: 'linear-gradient(135deg, #00b4ff 0%, #0077b6 100%)',
+                background: 'var(--primary)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                boxShadow: '0 0 16px -2px rgba(0, 180, 255, 0.5)',
+                boxShadow: '0 4px 14px -2px rgba(192, 178, 131, 0.45)',
                 position: 'relative',
                 transition: 'transform 0.2s ease'
               }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = 'scale(1.06)')}
               onMouseLeave={(e) => (e.currentTarget.style.transform = 'scale(1)')}
             >
-              <span style={{ color: '#ffffff', fontWeight: '900', fontSize: '16px', fontFamily: 'var(--font-heading)' }}>
+              <span style={{ color: '#373737', fontWeight: '900', fontSize: '16px', fontFamily: 'var(--font-heading)' }}>
                 LA
               </span>
               <span
@@ -191,7 +187,7 @@ const Navbar = () => {
                   height: '8px',
                   borderRadius: '50%',
                   background: 'var(--accent-emerald)',
-                  boxShadow: '0 0 8px var(--accent-emerald)'
+                  boxShadow: '0 0 6px var(--accent-emerald)'
                 }}
               />
             </div>
@@ -228,10 +224,10 @@ const Navbar = () => {
                 onClick={() => setLanguage(language === 'en' ? 'id' : 'en')}
                 aria-label="Toggle language"
                 style={{
-                  background: 'rgba(255, 255, 255, 0.05)',
-                  border: '1px solid rgba(255, 255, 255, 0.1)',
+                  background: '#EFEBE2',
+                  border: '1px solid #DFD8CD',
                   borderRadius: 'var(--radius-full)',
-                  padding: '6px 12px',
+                  padding: '6px 14px',
                   color: 'var(--text-main)',
                   fontSize: '12px',
                   fontWeight: '700',
@@ -242,7 +238,7 @@ const Navbar = () => {
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--primary)')}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)')}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#DFD8CD')}
               >
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10" />
@@ -261,7 +257,26 @@ const Navbar = () => {
                     rel="noopener noreferrer"
                     className="social-icon-btn"
                     title={social.name}
-                    style={{ width: '34px', height: '34px', borderRadius: '50%' }}
+                    style={{
+                      width: '34px',
+                      height: '34px',
+                      borderRadius: '50%',
+                      background: '#EFEBE2',
+                      border: '1px solid #DFD8CD',
+                      color: 'var(--text-main)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.2s ease'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--primary)';
+                      e.currentTarget.style.color = 'var(--primary)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#DFD8CD';
+                      e.currentTarget.style.color = 'var(--text-main)';
+                    }}
                   >
                     {social.icon}
                   </a>
@@ -280,12 +295,12 @@ const Navbar = () => {
                   height: '40px',
                   padding: '0 12px',
                   borderRadius: '12px',
-                  background: 'rgba(11, 18, 34, 0.85)',
-                  border: '1px solid rgba(0, 180, 255, 0.35)',
+                  background: 'rgba(246, 244, 238, 0.95)',
+                  border: '1px solid #E2DCD2',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4), 0 0 10px -2px var(--primary-glow)',
-                  color: '#ffffff',
+                  boxShadow: '0 4px 16px rgba(40, 30, 20, 0.06)',
+                  color: 'var(--text-main)',
                   display: 'flex',
                   alignItems: 'center',
                   gap: '6px',
@@ -295,12 +310,12 @@ const Navbar = () => {
                   transition: 'all 0.2s ease'
                 }}
                 onMouseEnter={(e) => (e.currentTarget.style.borderColor = 'var(--primary)')}
-                onMouseLeave={(e) => (e.currentTarget.style.borderColor = 'rgba(0, 180, 255, 0.35)')}
+                onMouseLeave={(e) => (e.currentTarget.style.borderColor = '#E2DCD2')}
               >
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                   <circle cx="12" cy="12" r="10" />
                   <line x1="2" y1="12" x2="22" y2="12" />
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z" />
+                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
                 </svg>
                 <span style={{ color: 'var(--primary)', letterSpacing: '0.04em' }}>
                   {language.toUpperCase()}
@@ -315,12 +330,12 @@ const Navbar = () => {
                   width: '40px',
                   height: '40px',
                   borderRadius: '12px',
-                  background: 'rgba(11, 18, 34, 0.85)',
-                  border: '1px solid rgba(255, 255, 255, 0.14)',
+                  background: 'rgba(246, 244, 238, 0.95)',
+                  border: '1px solid #E2DCD2',
                   backdropFilter: 'blur(12px)',
                   WebkitBackdropFilter: 'blur(12px)',
-                  boxShadow: '0 4px 16px rgba(0, 0, 0, 0.4)',
-                  color: '#ffffff',
+                  boxShadow: '0 4px 16px rgba(40, 30, 20, 0.06)',
+                  color: 'var(--text-main)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -351,9 +366,9 @@ const Navbar = () => {
         style={{
           position: 'fixed',
           inset: 0,
-          background: 'rgba(5, 8, 20, 0.85)',
-          backdropFilter: 'blur(16px)',
-          WebkitBackdropFilter: 'blur(16px)',
+          background: 'rgba(20, 18, 16, 0.45)',
+          backdropFilter: 'blur(10px)',
+          WebkitBackdropFilter: 'blur(10px)',
           zIndex: 2000,
           visibility: isMenuOpen ? 'visible' : 'hidden',
           opacity: isMenuOpen ? 1 : 0,
@@ -370,14 +385,14 @@ const Navbar = () => {
             width: '100%',
             maxWidth: '340px',
             height: '100%',
-            background: '#070c1a',
-            borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+            background: '#FAF7F0',
+            borderLeft: '1px solid #E4DFD5',
             padding: '24px 20px',
             display: 'flex',
             flexDirection: 'column',
             transform: isMenuOpen ? 'translateX(0)' : 'translateX(100%)',
             transition: 'transform 0.35s cubic-bezier(0.16, 1, 0.3, 1)',
-            boxShadow: '-10px 0 40px rgba(0, 0, 0, 0.8)'
+            boxShadow: '-10px 0 40px rgba(40, 30, 20, 0.15)'
           }}
           onClick={(e) => e.stopPropagation()}
         >
@@ -389,7 +404,7 @@ const Navbar = () => {
                   width: '36px',
                   height: '36px',
                   borderRadius: '10px',
-                  background: 'linear-gradient(135deg, #00b4ff 0%, #0077b6 100%)',
+                  background: 'var(--primary)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
@@ -401,7 +416,7 @@ const Navbar = () => {
               >
                 LA
               </div>
-              <span style={{ fontWeight: '800', fontSize: '15px', color: '#ffffff', letterSpacing: '-0.01em' }}>
+              <span style={{ fontWeight: '800', fontSize: '15px', color: 'var(--text-main)', letterSpacing: '-0.01em' }}>
                 Navigation
               </span>
             </div>
@@ -413,9 +428,9 @@ const Navbar = () => {
                 width: '38px',
                 height: '38px',
                 borderRadius: '10px',
-                background: 'rgba(255, 255, 255, 0.08)',
-                border: '1px solid rgba(255, 255, 255, 0.12)',
-                color: '#ffffff',
+                background: '#EFEBE2',
+                border: '1px solid #DFD8CD',
+                color: 'var(--text-main)',
                 cursor: 'pointer',
                 display: 'flex',
                 alignItems: 'center',
@@ -440,8 +455,8 @@ const Navbar = () => {
                 style={{
                   padding: '12px 16px',
                   borderRadius: '10px',
-                  color: activeSection === item.id ? 'var(--primary)' : 'var(--text-secondary)',
-                  background: activeSection === item.id ? 'rgba(0, 180, 255, 0.1)' : 'transparent',
+                  color: activeSection === item.id ? 'var(--primary)' : 'var(--text-main)',
+                  background: activeSection === item.id ? 'var(--primary-light)' : 'transparent',
                   fontWeight: '600',
                   fontSize: '15px',
                   transition: 'all 0.2s ease',
@@ -459,7 +474,7 @@ const Navbar = () => {
           </div>
 
           {/* Language Switcher in Drawer */}
-          <div style={{ marginTop: 'auto', paddingTop: '24px', borderTop: '1px solid rgba(255, 255, 255, 0.08)' }}>
+          <div style={{ marginTop: 'auto', paddingTop: '24px', borderTop: '1px solid #E4DFD5' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <span style={{ fontSize: '13px', color: 'var(--text-muted)' }}>Language</span>
               <div style={{ display: 'flex', gap: '6px' }}>
@@ -469,9 +484,9 @@ const Navbar = () => {
                     padding: '5px 12px',
                     borderRadius: 'var(--radius-full)',
                     border: '1px solid',
-                    borderColor: language === 'id' ? 'var(--primary)' : 'rgba(255, 255, 255, 0.1)',
-                    background: language === 'id' ? 'rgba(0, 180, 255, 0.15)' : 'transparent',
-                    color: language === 'id' ? 'var(--primary)' : 'var(--text-muted)',
+                    borderColor: language === 'id' ? 'var(--primary)' : '#DFD8CD',
+                    background: language === 'id' ? 'var(--primary-light)' : '#EFEBE2',
+                    color: language === 'id' ? 'var(--primary)' : 'var(--text-secondary)',
                     fontSize: '12px',
                     fontWeight: '700',
                     cursor: 'pointer'
@@ -485,9 +500,9 @@ const Navbar = () => {
                     padding: '5px 12px',
                     borderRadius: 'var(--radius-full)',
                     border: '1px solid',
-                    borderColor: language === 'en' ? 'var(--primary)' : 'rgba(255, 255, 255, 0.1)',
-                    background: language === 'en' ? 'rgba(0, 180, 255, 0.15)' : 'transparent',
-                    color: language === 'en' ? 'var(--primary)' : 'var(--text-muted)',
+                    borderColor: language === 'en' ? 'var(--primary)' : '#DFD8CD',
+                    background: language === 'en' ? 'var(--primary-light)' : '#EFEBE2',
+                    color: language === 'en' ? 'var(--primary)' : 'var(--text-secondary)',
                     fontSize: '12px',
                     fontWeight: '700',
                     cursor: 'pointer'

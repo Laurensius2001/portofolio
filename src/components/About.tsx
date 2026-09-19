@@ -88,8 +88,8 @@ const About = () => {
             style={{
               gridColumn: 'span 12',
               padding: '28px 36px',
-              background: 'linear-gradient(135deg, rgba(0, 180, 255, 0.08) 0%, rgba(99, 102, 241, 0.05) 100%)',
-              border: '1px solid rgba(0, 180, 255, 0.2)',
+              background: 'var(--primary-light)',
+              border: '1px solid rgba(192, 178, 131, 0.35)',
               display: 'flex',
               flexWrap: 'wrap',
               alignItems: 'center',
@@ -103,12 +103,12 @@ const About = () => {
                   width: '46px',
                   height: '46px',
                   borderRadius: '12px',
-                  background: 'rgba(0, 180, 255, 0.15)',
-                  border: '1px solid rgba(0, 180, 255, 0.3)',
+                  background: 'var(--primary)',
+                  border: '1px solid var(--primary)',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: 'var(--primary)',
+                  color: '#ffffff',
                   flexShrink: 0
                 }}
               >
@@ -117,7 +117,7 @@ const About = () => {
                 </svg>
               </div>
               <div>
-                <h4 style={{ fontSize: '17px', fontWeight: '700', color: '#ffffff', marginBottom: '4px' }}>
+                <h4 style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text-main)', marginBottom: '4px' }}>
                   {t<string>('about.focusTitle')}
                 </h4>
                 <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
@@ -183,21 +183,21 @@ const About = () => {
                       width: '46px',
                       height: '46px',
                       borderRadius: '12px',
-                      background: 'rgba(255, 255, 255, 0.05)',
-                      border: '1px solid rgba(255, 255, 255, 0.1)',
+                      background: '#EFEBE2',
+                      border: '1px solid #DFD8CD',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: index === 0 ? 'var(--primary)' : index === 1 ? '#818cf8' : '#34d399'
+                      color: 'var(--primary)'
                     }}
                   >
                     {icons[index % icons.length]}
                   </div>
                   <div>
-                    <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', color: '#ffffff' }}>
+                    <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', color: 'var(--text-main)' }}>
                       {pillar.title}
                     </h3>
-                    <p style={{ fontSize: '14px', color: 'var(--text-muted)', lineHeight: 1.6 }}>
+                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
                       {pillar.desc}
                     </p>
                   </div>

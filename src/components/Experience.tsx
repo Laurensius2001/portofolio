@@ -238,7 +238,7 @@ const Experience = () => {
                         </div>
 
                         <div>
-                          <div style={{ fontSize: '15px', fontWeight: '700', color: '#ffffff', lineHeight: 1.3 }}>
+                          <div style={{ fontSize: '15px', fontWeight: '700', color: 'var(--text-main)', lineHeight: 1.3 }}>
                             {t<string>('experience.showMore')}
                           </div>
                           <div style={{ fontSize: '13px', color: 'var(--text-muted)', marginTop: '2px' }}>
@@ -256,8 +256,8 @@ const Experience = () => {
                             width: '32px',
                             height: '32px',
                             borderRadius: '50%',
-                            background: 'rgba(255, 255, 255, 0.05)',
-                            border: '1px solid rgba(255, 255, 255, 0.1)',
+                            background: '#EFEBE2',
+                            border: '1px solid #DFD8CD',
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -295,8 +295,8 @@ const Experience = () => {
                           display: 'inline-flex',
                           alignItems: 'center',
                           gap: '6px',
-                          background: 'rgba(255, 255, 255, 0.05)',
-                          border: '1px solid rgba(255, 255, 255, 0.1)',
+                          background: '#EFEBE2',
+                          border: '1px solid #DFD8CD',
                           borderRadius: 'var(--radius-full)',
                           padding: '4px 14px',
                           fontSize: '12px',
@@ -305,14 +305,14 @@ const Experience = () => {
                           transition: 'all 0.2s ease'
                         }}
                         onMouseEnter={(e) => {
-                          e.currentTarget.style.color = '#fff';
+                          e.currentTarget.style.color = 'var(--primary)';
                           e.currentTarget.style.borderColor = 'var(--primary)';
-                          e.currentTarget.style.background = 'rgba(0, 180, 255, 0.12)';
+                          e.currentTarget.style.background = 'var(--primary-light)';
                         }}
                         onMouseLeave={(e) => {
                           e.currentTarget.style.color = 'var(--text-secondary)';
-                          e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)';
-                          e.currentTarget.style.background = 'rgba(255, 255, 255, 0.05)';
+                          e.currentTarget.style.borderColor = '#DFD8CD';
+                          e.currentTarget.style.background = '#EFEBE2';
                         }}
                       >
                         <span>{t<string>('experience.showLess')}</span>
@@ -388,9 +388,9 @@ const Experience = () => {
                                 fontWeight: '700',
                                 padding: '4px 14px',
                                 borderRadius: 'var(--radius-full)',
-                                background: 'rgba(255, 255, 255, 0.05)',
+                                background: '#EFEBE2',
                                 color: 'var(--text-muted)',
-                                border: '1px solid rgba(255, 255, 255, 0.08)'
+                                border: '1px solid #DFD8CD'
                               }}
                             >
                               {exp.period}

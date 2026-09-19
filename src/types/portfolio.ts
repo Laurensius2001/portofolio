@@ -35,6 +35,17 @@ export interface SkillCategory {
   items: string[];
 }
 
+export interface SkillBar {
+  name: string;
+  level: number;
+}
+
+export interface SkillFeature {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
 export interface ProjectItem {
   title: string;
   category: string;

@@ -22,6 +22,20 @@ const translations = {
       contact: 'Contact'
     },
     hero: {
+      category: 'WEB DESIGNER & DEVELOPER',
+      available: 'AVAILABLE FOR FREELANCE',
+      hello: "HELLO, I'M",
+      name: 'LORENS ADONARA',
+      tagline: 'WEB DESIGNER & DIGITAL CREATIVE',
+      bio: 'a Senior Full-Stack Web Developer from Indonesia. I specialize in scalable web applications, robust backend architectures, and integrated APIs that solve real-world operational challenges.',
+      openProjects: 'OPEN FOR NEW PROJECTS',
+      worldwide: 'AVAILABLE WORLDWIDE • OPEN FOR NEW PROJECTS •',
+      rails: {
+        uiux: 'UI / UX DESIGN',
+        webdev: 'WEB DEVELOPMENT',
+        branding: '@BRANDING',
+        digital: 'DIGITAL EXPERIENCES'
+      },
       status: 'Available for New Projects & Roles',
       iam: 'HELLO, I AM',
       rolePrefix: 'a Senior ',
@@ -29,7 +43,7 @@ const translations = {
       badgeYear: 'Portfolio 2026',
       subheading: 'Visual Aesthetics & Modern Web Engineering',
       roles: ['Full-Stack Web Developer', 'Web System Builder', 'Backend & API Architect'],
-      description: 'Over 5+ years engineering scalable web applications, robust backend architectures, and high-performance interfaces with modern, clean engineering practices.',
+      description: 'a Senior Full-Stack Web Developer from Indonesia. I specialize in scalable web applications, robust backend architectures, and integrated APIs that solve real-world operational challenges.',
       button: 'Explore Works',
       contactBtn: 'Get in Touch',
       stats: [
@@ -212,8 +226,39 @@ const translations = {
     },
     skills: {
       badge: 'Technical Arsenal',
-      title: 'Skills & Stack',
-      subtitle: 'Battle-tested tools and frameworks used across production deployments.',
+      title1: 'SKILLS &',
+      title2: 'EXPERTISE',
+      quote: 'I engineer resilient full-stack systems and intuitive interfaces — bridging complex backend architectures with high-performance digital experiences.',
+      bars: [
+        { name: 'FULL-STACK WEB DEV', level: 95 },
+        { name: 'BACKEND & RESTFUL APIS', level: 92 },
+        { name: 'DATABASE & POSTGRESQL', level: 90 },
+        { name: 'CMS & SHOPIFY (LIQUID)', level: 88 },
+        { name: 'UI / UX & RESPONSIVE DESIGN', level: 92 },
+        { name: 'SYSTEM & POS INTEGRATION', level: 85 }
+      ],
+      features: [
+        {
+          icon: 'monitor',
+          title: 'END-TO-END DELIVERY',
+          desc: 'From intuitive frontend interfaces to robust database infrastructures.'
+        },
+        {
+          icon: 'code',
+          title: 'ROBUST BACKEND & APIS',
+          desc: 'Scalable RESTful endpoints, secure business logic, and modular clean code.'
+        },
+        {
+          icon: 'responsive',
+          title: 'CMS & E-COMMERCE ENGINES',
+          desc: 'Custom Shopify Liquid templates, payment gateways, and catalog systems.'
+        },
+        {
+          icon: 'rocket',
+          title: 'PERFORMANCE & HARDWARE POS',
+          desc: 'High-speed database queries, thermal POS receipt printing, and 99.9% uptime.'
+        }
+      ],
       categories: [
         {
           name: 'Frontend Development',
@@ -241,6 +286,11 @@ const translations = {
       badge: 'Selected Works',
       title: 'Featured Projects',
       subtitle: 'Production web applications, information systems, and e-commerce platforms.',
+      selected1: 'SELECTED',
+      selected2: 'PROJECTS',
+      curatedDesc: 'A curated selection of recent work showcasing design, development, and problem-solving.',
+      viewAll: 'VIEW ALL PROJECTS',
+      closeModal: 'Close Details',
       viewlive: 'Visit Live Site',
       confidential: 'Production System (Private / Offline)',
       zoom: 'Zoom image',
@@ -340,8 +390,13 @@ const translations = {
     },
     contact: {
       badge: 'Contact',
+      titleLine1: "LET'S CREATE",
+      titleLine2: 'SOMETHING GREAT',
       title: "Let's build something remarkable together.",
-      subtitle: 'Available for freelance projects, technical consulting, and full-time senior engineering opportunities.',
+      subtitle: "Have a project in mind? Let's build something that makes an impact.",
+      scanText1: 'SCAN TO VISIT',
+      scanText2: 'MY WEBSITE',
+      website: 'www.lorensius.dev',
       whatsapp: {
         title: 'WhatsApp Direct',
         action: 'Start WhatsApp Chat'
@@ -358,7 +413,7 @@ const translations = {
       },
       location: {
         title: 'Location & Availability',
-        value: 'Bandung & Remote, Indonesia',
+        value: 'Remote Worldwide',
         action: 'Open Worldwide'
       },
       copied: 'Email copied to clipboard!'
@@ -386,6 +441,20 @@ const translations = {
       contact: 'Kontak'
     },
     hero: {
+      category: 'WEB DESIGNER & DEVELOPER',
+      available: 'AVAILABLE FOR FREELANCE',
+      hello: "HALO, SAYA",
+      name: 'LORENS ADONARA',
+      tagline: 'WEB DESIGNER & DIGITAL CREATIVE',
+      bio: 'seorang Senior Full-Stack Web Developer asal Indonesia. Saya berfokus pada pengembangan sistem aplikasi web menyeluruh, arsitektur backend skala besar, serta API terintegrasi yang memecahkan kendala operasional nyata.',
+      openProjects: 'OPEN FOR NEW PROJECTS',
+      worldwide: 'AVAILABLE WORLDWIDE • OPEN FOR NEW PROJECTS •',
+      rails: {
+        uiux: 'UI / UX DESIGN',
+        webdev: 'WEB DEVELOPMENT',
+        branding: '@BRANDING',
+        digital: 'DIGITAL EXPERIENCES'
+      },
       status: 'Tersedia untuk Proyek & Posisi Baru',
       iam: 'HALO, SAYA',
       rolePrefix: 'Senior ',
@@ -393,7 +462,7 @@ const translations = {
       badgeYear: 'Portofolio 2026',
       subheading: 'Estetika Visual & Solusi Rekayasa Web Modern',
       roles: ['Pengembang Web Full-Stack', 'Pembangun Sistem Web', 'Arsitek Backend & API'],
-      description: 'Lebih dari 5+ tahun membangun aplikasi web terukur, arsitektur backend tangguh, dan antarmuka performa tinggi dengan standar rekayasa modern yang bersih.',
+      description: 'seorang Senior Full-Stack Web Developer asal Indonesia. Saya berfokus pada pengembangan sistem aplikasi web menyeluruh, arsitektur backend skala besar, serta API terintegrasi yang memecahkan kendala operasional nyata.',
       button: 'Lihat Portofolio',
       contactBtn: 'Hubungi Saya',
       stats: [
@@ -576,8 +645,39 @@ const translations = {
     },
     skills: {
       badge: 'Keahlian Teknis',
-      title: 'Keahlian & Teknologi',
-      subtitle: 'Peralatan dan framework andalan yang telah teruji pada lingkungan produksi.',
+      title1: 'SKILLS &',
+      title2: 'EXPERTISE',
+      quote: 'Saya merancang sistem web tangguh dari arsitektur backend hingga antarmuka intuitif — memecahkan kendala operasional nyata dengan performa optimal.',
+      bars: [
+        { name: 'FULL-STACK WEB DEV', level: 95 },
+        { name: 'BACKEND & RESTFUL APIS', level: 92 },
+        { name: 'BASIS DATA & POSTGRESQL', level: 90 },
+        { name: 'CMS & SHOPIFY (LIQUID)', level: 88 },
+        { name: 'UI / UX & DESAIN RESPONSIF', level: 92 },
+        { name: 'SISTEM & INTEGRASI POS', level: 85 }
+      ],
+      features: [
+        {
+          icon: 'monitor',
+          title: 'PENGEMBANGAN END-TO-END',
+          desc: 'Membangun solusi lengkap dari antarmuka modern hingga infrastruktur basis data.'
+        },
+        {
+          icon: 'code',
+          title: 'BACKEND & RESTFUL API',
+          desc: 'Endpoint aman, logika bisnis teruji, dan arsitektur kode modular siap produksi.'
+        },
+        {
+          icon: 'responsive',
+          title: 'CMS & E-COMMERCE PLATFORMS',
+          desc: 'Kustomisasi tema Shopify Liquid, integrasi pembayaran, dan katalog produk.'
+        },
+        {
+          icon: 'rocket',
+          title: 'PERFORMA & INTEGRASI OPERASIONAL',
+          desc: 'Optimasi query database, integrasi cetak struk POS termal, dan keandalan sistem.'
+        }
+      ],
       categories: [
         {
           name: 'Frontend Development',
@@ -605,6 +705,11 @@ const translations = {
       badge: 'Karya Terpilih',
       title: 'Proyek Unggulan',
       subtitle: 'Sistem informasi, aplikasi web bisnis, dan platform e-commerce skala nyata.',
+      selected1: 'KARYA',
+      selected2: 'TERPILIH',
+      curatedDesc: 'Koleksi proyek pilihan yang menunjukkan keahlian rekayasa sistem, desain antarmuka, dan pemecahan masalah operasional nyata.',
+      viewAll: 'LIHAT SEMUA PROYEK',
+      closeModal: 'Tutup Detail',
       viewlive: 'Buka Website Langsung',
       confidential: 'Sistem Produksi (Privat / Offline)',
       zoom: 'Perbesar gambar',
@@ -704,8 +809,13 @@ const translations = {
     },
     contact: {
       badge: 'Kontak',
+      titleLine1: "MARI CIPTAKAN",
+      titleLine2: "SESUATU YANG HEBAT",
       title: 'Mari wujudkan solusi digital terbaik bersama.',
-      subtitle: 'Terbuka untuk kolaborasi proyek freelance, konsultasi teknis, maupun kesempatan berkarier sebagai senior engineer.',
+      subtitle: 'Punya ide proyek atau rencana sistem? Mari bangun sesuatu yang berdampak nyata.',
+      scanText1: 'SCAN UNTUK KUNJUNGI',
+      scanText2: 'WEBSITE SAYA',
+      website: 'www.lorensius.dev',
       whatsapp: {
         title: 'WhatsApp Langsung',
         action: 'Mulai Chat WhatsApp'
@@ -722,7 +832,7 @@ const translations = {
       },
       location: {
         title: 'Lokasi & Fleksibilitas',
-        value: 'Bandung & Remote, Indonesia',
+        value: 'Remote Worldwide',
         action: 'Siap Kerja Jarak Jauh'
       },
       copied: 'Email berhasil disalin!'

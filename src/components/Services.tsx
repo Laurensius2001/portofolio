@@ -92,14 +92,14 @@ const Services = () => {
                     width: '48px',
                     height: '48px',
                     borderRadius: '14px',
-                    background: 'rgba(0, 180, 255, 0.1)',
-                    border: '1px solid rgba(0, 180, 255, 0.25)',
+                    background: 'var(--primary-light)',
+                    border: '1px solid rgba(192, 178, 131, 0.4)',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
                     color: 'var(--primary)',
                     marginBottom: '20px',
-                    boxShadow: '0 8px 16px -4px rgba(0, 180, 255, 0.2)'
+                    boxShadow: '0 4px 12px -2px rgba(192, 178, 131, 0.2)'
                   }}
                 >
                   {icons[index % icons.length]}
@@ -110,7 +110,7 @@ const Services = () => {
                   style={{
                     fontSize: '20px',
                     fontWeight: '700',
-                    color: '#ffffff',
+                    color: 'var(--text-main)',
                     marginBottom: '12px',
                     lineHeight: 1.3
                   }}
@@ -122,7 +122,7 @@ const Services = () => {
                 <p
                   style={{
                     fontSize: '14px',
-                    color: 'var(--text-muted)',
+                    color: 'var(--text-secondary)',
                     lineHeight: 1.65,
                     marginBottom: '24px'
                   }}
@@ -132,7 +132,7 @@ const Services = () => {
               </div>
 
               {/* Tech Tags */}
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '16px', borderTop: '1px solid rgba(255, 255, 255, 0.06)' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px', paddingTop: '16px', borderTop: '1px solid var(--border)' }}>
                 {service.tags && service.tags.map((tag: string, i: number) => (
                   <span key={i} className="tech-pill" style={{ fontSize: '11px', padding: '3px 10px' }}>
                     {tag}

@@ -43,18 +43,18 @@ const AnimatedBackground = () => {
     const initParticles = () => {
       particles = [];
       // Dynamic count based on screen area, balanced for performance
-      const particleCount = Math.min(75, Math.floor((width * height) / 18000));
+      const particleCount = Math.min(45, Math.floor((width * height) / 28000));
 
-      const colors = ['rgba(0, 180, 255, ', 'rgba(99, 102, 241, ', 'rgba(14, 165, 233, '];
+      const colors = ['rgba(192, 178, 131, ', 'rgba(220, 208, 192, ', 'rgba(168, 155, 110, '];
 
       for (let i = 0; i < particleCount; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.6,
-          vy: (Math.random() - 0.5) * 0.6,
+          vx: (Math.random() - 0.5) * 0.35,
+          vy: (Math.random() - 0.5) * 0.35,
           size: Math.random() * 2 + 1,
-          baseAlpha: Math.random() * 0.4 + 0.2,
+          baseAlpha: Math.random() * 0.2 + 0.08,
           color: colors[Math.floor(Math.random() * colors.length)]
         });
       }
@@ -79,16 +79,16 @@ const AnimatedBackground = () => {
     const render = () => {
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Draw subtle ambient glowing mesh in the corners
+      // 1. Draw subtle ambient glowing warmth in corners
       const radGrad1 = ctx.createRadialGradient(width * 0.85, height * 0.15, 0, width * 0.85, height * 0.15, width * 0.5);
-      radGrad1.addColorStop(0, 'rgba(0, 180, 255, 0.08)');
-      radGrad1.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      radGrad1.addColorStop(0, 'rgba(192, 178, 131, 0.05)');
+      radGrad1.addColorStop(1, 'rgba(244, 244, 244, 0)');
       ctx.fillStyle = radGrad1;
       ctx.fillRect(0, 0, width, height);
 
       const radGrad2 = ctx.createRadialGradient(width * 0.15, height * 0.85, 0, width * 0.15, height * 0.85, width * 0.45);
-      radGrad2.addColorStop(0, 'rgba(99, 102, 241, 0.07)');
-      radGrad2.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      radGrad2.addColorStop(0, 'rgba(220, 208, 192, 0.04)');
+      radGrad2.addColorStop(1, 'rgba(244, 244, 244, 0)');
       ctx.fillStyle = radGrad2;
       ctx.fillRect(0, 0, width, height);
 
@@ -126,27 +126,27 @@ const AnimatedBackground = () => {
         for (let j = i + 1; j < particles.length; j++) {
           const p2 = particles[j];
           const pdist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          const maxDist = 130;
+          const maxDist = 120;
 
           if (pdist < maxDist) {
-            const lineAlpha = (1 - pdist / maxDist) * 0.15;
+            const lineAlpha = (1 - pdist / maxDist) * 0.06;
             ctx.beginPath();
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(0, 180, 255, ${lineAlpha})`;
-            ctx.lineWidth = 0.8;
+            ctx.strokeStyle = `rgba(192, 178, 131, ${lineAlpha})`;
+            ctx.lineWidth = 0.6;
             ctx.stroke();
           }
         }
 
         // Connect to mouse if close
         if (dist < mouse.radius) {
-          const lineAlpha = (1 - dist / mouse.radius) * 0.25;
+          const lineAlpha = (1 - dist / mouse.radius) * 0.12;
           ctx.beginPath();
           ctx.moveTo(p.x, p.y);
           ctx.lineTo(mouse.x, mouse.y);
-          ctx.strokeStyle = `rgba(0, 220, 255, ${lineAlpha})`;
-          ctx.lineWidth = 1;
+          ctx.strokeStyle = `rgba(192, 178, 131, ${lineAlpha})`;
+          ctx.lineWidth = 0.8;
           ctx.stroke();
         }
       }
@@ -175,7 +175,7 @@ const AnimatedBackground = () => {
         height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
-        background: '#050814'
+        background: '#F7F4EE'
       }}
     />
   );
