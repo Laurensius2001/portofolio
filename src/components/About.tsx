@@ -1,214 +1,122 @@
 import { useLanguage } from '../context/LanguageContext';
-import type { AboutPillar } from '../types/portfolio';
+import { Terminal, Cpu, Layers, Sparkles, CheckCircle2 } from 'lucide-react';
 
-const About = () => {
-  const { t } = useLanguage();
-
-  const pillars = (t<AboutPillar[]>('about.pillars')) || [];
+export default function About() {
+  const { t, language } = useLanguage();
 
   return (
-    <section id="about" style={{ padding: '80px 0' }}>
-      <div className="container">
+    <section id="about" style={{ padding: '80px 24px', backgroundColor: '#0d0e15' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        
         {/* Section Header */}
-        <div className="section-header">
-          <div className="section-badge">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <circle cx="12" cy="12" r="10" />
-              <line x1="12" y1="16" x2="12" y2="12" />
-              <line x1="12" y1="8" x2="12.01" y2="8" />
-            </svg>
-            <span>{t<string>('about.badge')}</span>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: '8px' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <span style={{ color: '#ccff00', fontFamily: 'var(--font-marker)' }}>✦</span>
+            <span style={{ fontFamily: 'var(--font-doodle)', fontSize: '24px', fontWeight: 700, color: '#ccff00' }}>
+              Get to know me
+            </span>
           </div>
-          <h2 className="section-title gradient-text">
-            {t<string>('about.title')}
+          <h2 style={{ fontFamily: 'var(--font-marker)', fontSize: '48px', color: '#ffffff', letterSpacing: '1px' }}>
+            ABOUT <span style={{ color: '#ccff00' }}>LORENS</span>
           </h2>
+          <p style={{ fontFamily: 'var(--font-body)', fontSize: '16px', color: '#94a3b8', maxWidth: '600px' }}>
+            {t<string>('about.title') || 'Crafting resilient web systems from architecture to interface.'}
+          </p>
         </div>
 
-        {/* Bento Grid */}
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(12, 1fr)',
-            gap: '24px'
-          }}
-        >
-          {/* Main Story Bento Card */}
-          <div
-            className="glass-card"
-            style={{
-              gridColumn: 'span 12',
-              padding: 'clamp(28px, 4vw, 44px)',
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>
-              <span style={{ width: '28px', height: '2px', background: 'var(--primary)' }} />
-              <span style={{ color: 'var(--primary)', fontWeight: '700', fontSize: '13px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
-                Senior Engineer Profile
+        {/* Story Grid */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '24px', marginTop: '40px' }}>
+          
+          {/* Left Card: Who I Am */}
+          <div style={{ background: '#141522', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px', padding: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(124,58,237,0.2)', color: '#c084fc', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Terminal style={{ width: '20px', height: '20px' }} />
+                </div>
+                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: 800 }}>
+                  {language === 'en' ? 'Who I Am' : 'Siapa Saya'}
+                </h3>
+              </div>
+              <p style={{ marginTop: '16px', fontSize: '15px', color: '#cbd5e1', lineHeight: 1.65 }}>
+                {t<string>('about.p1') ||
+                  "Hi, I'm Lorens Adonara — a Senior Full-Stack Web Developer based in Indonesia. I specialize in building end-to-end web applications, data-driven systems, and scalable APIs that solve complex operational problems."}
+              </p>
+            </div>
+
+            <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '10px' }}>
+              <span style={{ width: '10px', height: '10px', borderRadius: '50%', background: '#ccff00', boxShadow: '0 0 10px #ccff00' }} />
+              <span style={{ fontSize: '13px', fontWeight: 700, color: '#e2e8f0' }}>
+                5+ Years Engineering Web Applications & Systems
               </span>
             </div>
-
-            <p
-              style={{
-                fontSize: 'clamp(16px, 1.8vw, 19px)',
-                lineHeight: 1.7,
-                color: 'var(--text-main)',
-                marginBottom: '20px',
-                fontWeight: '400'
-              }}
-            >
-              {t<string>('about.p1')}
-            </p>
-
-            <p
-              style={{
-                fontSize: 'clamp(15px, 1.6vw, 17px)',
-                lineHeight: 1.7,
-                color: 'var(--text-muted)',
-                marginBottom: '28px'
-              }}
-            >
-              {t<string>('about.p2')}
-            </p>
-
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-              {['End-to-End Delivery', 'RESTful Architectures', 'PostgreSQL & Relational DBs', 'Scalable Systems', 'Thermal POS Integration'].map((tag, idx) => (
-                <span key={idx} className="tech-pill">
-                  {tag}
-                </span>
-              ))}
-            </div>
           </div>
 
-          {/* Current Focus Card */}
-          <div
-            className="glass-card"
-            style={{
-              gridColumn: 'span 12',
-              padding: '28px 36px',
-              background: 'var(--primary-light)',
-              border: '1px solid rgba(192, 178, 131, 0.35)',
-              display: 'flex',
-              flexWrap: 'wrap',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: '20px'
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: '16px', maxWidth: '800px' }}>
-              <div
-                style={{
-                  width: '46px',
-                  height: '46px',
-                  borderRadius: '12px',
-                  background: 'var(--primary)',
-                  border: '1px solid var(--primary)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: '#ffffff',
-                  flexShrink: 0
-                }}
-              >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-                </svg>
-              </div>
-              <div>
-                <h4 style={{ fontSize: '17px', fontWeight: '700', color: 'var(--text-main)', marginBottom: '4px' }}>
-                  {t<string>('about.focusTitle')}
-                </h4>
-                <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.5 }}>
-                  {t<string>('about.focusDesc')}
-                </p>
-              </div>
-            </div>
-
-            <a
-              href="#services"
-              className="btn-secondary"
-              style={{ padding: '10px 20px', fontSize: '13px', whiteSpace: 'nowrap' }}
-            >
-              <span>Explore Services</span>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                <line x1="5" y1="12" x2="19" y2="12" />
-                <polyline points="12 5 19 12 12 19" />
-              </svg>
-            </a>
-          </div>
-
-          {/* 3 Core Pillars Container */}
-          <div
-            style={{
-              gridColumn: 'span 12',
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-              gap: '24px'
-            }}
-          >
-            {pillars.map((pillar: AboutPillar, index: number) => {
-              const icons = [
-                <svg key="1" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="18" height="18" x="3" y="3" rx="2" />
-                  <path d="m9 8 6 4-6 4" />
-                </svg>,
-                <svg key="2" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="8" x="2" y="2" rx="2" ry="2" />
-                  <rect width="20" height="8" x="2" y="14" rx="2" ry="2" />
-                  <line x1="6" x2="6.01" y1="6" y2="6" />
-                  <line x1="6" x2="6.01" y1="18" y2="18" />
-                </svg>,
-                <svg key="3" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect width="20" height="14" x="2" y="3" rx="2" />
-                  <line x1="8" x2="16" y1="21" y2="21" />
-                  <line x1="12" x2="12" y1="17" y2="21" />
-                </svg>
-              ];
-
-              return (
-                <div
-                  key={index}
-                  className="glass-card"
-                  style={{
-                    padding: '30px 28px',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    gap: '16px'
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '46px',
-                      height: '46px',
-                      borderRadius: '12px',
-                      background: '#EFEBE2',
-                      border: '1px solid #DFD8CD',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      color: 'var(--primary)'
-                    }}
-                  >
-                    {icons[index % icons.length]}
-                  </div>
-                  <div>
-                    <h3 style={{ fontSize: '18px', fontWeight: '700', marginBottom: '8px', color: 'var(--text-main)' }}>
-                      {pillar.title}
-                    </h3>
-                    <p style={{ fontSize: '14px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
-                      {pillar.desc}
-                    </p>
-                  </div>
+          {/* Right Card: What I Do */}
+          <div style={{ background: '#141522', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '28px', padding: '32px', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+            <div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <div style={{ width: '40px', height: '40px', borderRadius: '12px', background: 'rgba(37,99,235,0.2)', color: '#60a5fa', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <Cpu style={{ width: '20px', height: '20px' }} />
                 </div>
-              );
-            })}
+                <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '20px', fontWeight: 800 }}>
+                  {language === 'en' ? 'What I Do' : 'Apa yang Saya Kerjakan'}
+                </h3>
+              </div>
+              <p style={{ marginTop: '16px', fontSize: '15px', color: '#cbd5e1', lineHeight: 1.65 }}>
+                {t<string>('about.p2') ||
+                  'With experience spanning ISP customer service ticketing, municipal government portals, vendor catalogs, and e-commerce architectures, I bring technical discipline, clean modular code, and high performance to every project.'}
+              </p>
+            </div>
+
+            <div style={{ marginTop: '24px', paddingTop: '20px', borderTop: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', gap: '8px', fontSize: '13px', color: '#cbd5e1' }}>
+              <CheckCircle2 style={{ width: '16px', height: '16px', color: '#ccff00' }} />
+              <span>Production-Ready Clean Architecture & High Reliability</span>
+            </div>
+          </div>
+
+        </div>
+
+        {/* 3 Core Pillars */}
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '20px', marginTop: '24px' }}>
+          <div style={{ background: '#141520', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '24px' }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '14px', background: 'rgba(204,255,0,0.15)', color: '#ccff00', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px' }}>
+              <Sparkles style={{ width: '22px', height: '22px' }} />
+            </div>
+            <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '18px', fontWeight: 800 }}>
+              {language === 'en' ? 'Clean Architecture' : 'Arsitektur Bersih'}
+            </h4>
+            <p style={{ marginTop: '8px', fontSize: '14px', color: '#94a3b8', lineHeight: 1.6 }}>
+              Designing maintainable, decoupled codebases with structured APIs and clean folder conventions.
+            </p>
+          </div>
+
+          <div style={{ background: '#141520', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '24px' }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '14px', background: 'rgba(124,58,237,0.15)', color: '#c084fc', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px' }}>
+              <Cpu style={{ width: '22px', height: '22px' }} />
+            </div>
+            <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '18px', fontWeight: 800 }}>
+              {language === 'en' ? 'High-Performance Backends' : 'Backend Berperforma Tinggi'}
+            </h4>
+            <p style={{ marginTop: '8px', fontSize: '14px', color: '#94a3b8', lineHeight: 1.6 }}>
+              Developing secure RESTful endpoints, optimized relational and graph database queries, and background processes.
+            </p>
+          </div>
+
+          <div style={{ background: '#141520', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '24px', padding: '24px' }}>
+            <div style={{ width: '44px', height: '44px', borderRadius: '14px', background: 'rgba(37,99,235,0.15)', color: '#60a5fa', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '14px' }}>
+              <Layers style={{ width: '22px', height: '22px' }} />
+            </div>
+            <h4 style={{ fontFamily: 'var(--font-heading)', fontSize: '18px', fontWeight: 800 }}>
+              {language === 'en' ? 'Intuitive Frontends' : 'Antarmuka Pengguna Modern'}
+            </h4>
+            <p style={{ marginTop: '8px', fontSize: '14px', color: '#94a3b8', lineHeight: 1.6 }}>
+              Crafting responsive, accessible, and fast client applications with modern React, TypeScript, and fluid animations.
+            </p>
           </div>
         </div>
+
       </div>
     </section>
   );
-};
-
-export default About;
+}

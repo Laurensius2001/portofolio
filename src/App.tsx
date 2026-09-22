@@ -1,49 +1,49 @@
+
+import { useEffect } from 'react';
+import Lenis from 'lenis';
 import Hero from './components/Hero';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Contact from './components/Contact';
-import AnimatedBackground from './components/AnimatedBackground';
-import ScrollToTop from './components/ScrollToTop';
-import { LanguageProvider, useLanguage } from './context/LanguageContext';
+import { LanguageProvider } from './context/LanguageContext';
 import './App.css';
 
-function App() {
+export default function App() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true,
+    });
+
+    (window as unknown as { lenis?: Lenis }).lenis = lenis;
+
+    const raf = (time: number) => {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    };
+
+    const rafId = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      lenis.destroy();
+      delete (window as unknown as { lenis?: Lenis }).lenis;
+    };
+  }, []);
+
   return (
     <LanguageProvider>
-      <AnimatedBackground />
-      <AppContent />
+      <div className="portfolio-app-root">
+        {/* Main Content Sections */}
+        <main className="portfolio-main">
+          <Hero />
+          <Projects />
+          <Skills />
+          <Contact />
+        </main>
+      </div>
     </LanguageProvider>
   );
 }
-
-function AppContent() {
-  const { language, setLanguage } = useLanguage();
-
-  return (
-    <div className="main-wrapper">
-      <main>
-        <Hero />
-        <Projects />
-        <Skills />
-        <Contact />
-      </main>
-
-      {/* Floating Action Controls on Bottom-Left */}
-      <div className="floating-stack">
-        <button
-          className="floating-btn language"
-          onClick={() => setLanguage(language === 'en' ? 'id' : 'en')}
-          title="Switch Language (ID / EN)"
-          aria-label="Switch Language"
-        >
-          {language.toUpperCase()}
-        </button>
-      </div>
-
-      {/* Scroll To Top on Bottom-Right */}
-      <ScrollToTop />
-    </div>
-  );
-}
-
-export default App;

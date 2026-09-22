@@ -54,4 +54,6 @@ export interface ProjectItem {
   highlights?: string[];
   link?: string | null;
   images?: string[];
+  thumbnail?: string;
 }
+

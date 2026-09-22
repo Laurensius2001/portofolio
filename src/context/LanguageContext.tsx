@@ -292,7 +292,6 @@ const translations = {
       viewAll: 'VIEW ALL PROJECTS',
       closeModal: 'Close Details',
       viewlive: 'Visit Live Site',
-      confidential: 'Production System (Private / Offline)',
       zoom: 'Zoom image',
       items: [
         {
@@ -330,6 +329,23 @@ const translations = {
             '/projects/srimart-3.png',
             '/projects/srimart-4.png',
             '/projects/srimart-5.png'
+          ]
+        },
+        {
+          title: 'ZTECH - PT Zefri Teknologi Jaya (7 SOL Green Energy)',
+          category: 'Company Profile & Green Energy Innovation',
+          description: 'A modern high-performance corporate web platform and digital product showcase engineered for PT Zefri Teknologi Jaya. Highlights the national 7 SOL eco-friendly fuel innovation produced from sustainable waste processing. Features interactive vision & mission showcases, multi-variant energy product catalogs, and direct 1-click consultation & quotation engine connected directly to sales channels.',
+          tags: ['React.js', 'Vite', 'Modern Vanilla CSS', 'Responsive UI/UX', 'SEO Optimization', 'Interactive Showcase'],
+          highlights: [
+            'Bespoke modern UI architecture with national green energy brand identity',
+            'Interactive 7 SOL eco-fuel product catalog & marketing brochure showcase',
+            'Integrated fast quotation engine connected directly to WhatsApp sales channels'
+          ],
+          link: null,
+          thumbnail: '/projects/ztech-1.png',
+          images: [
+            '/projects/ztech-1.png',
+            '/projects/ztech-2.png',
           ]
         },
         {
@@ -371,19 +387,21 @@ const translations = {
         {
           title: 'Official Municipal Digital Portal of Jatiroke Village',
           category: 'Government & Public Information System',
-          description: 'The official digital government and public services platform for Jatiroke Village in Sumedang, West Java. Empowers local administration with citizen demographic records, administrative dashboards, news distribution, and tourism portals.',
-          tags: ['CodeIgniter', 'Bootstrap', 'MySQL', 'Admin Dashboard'],
+          description: 'The official digital government and public services platform for Jatiroke Village in Sumedang, West Java. Empowers local municipal administration with citizen demographic records, interactive statistical dashboards, official news publishing, and local tourism promotion.',
+          tags: ['Next.js', 'Node.js', 'REST API (Swagger UI)', 'PostgreSQL', 'Bootstrap 5', 'Dashboard Admin'],
           highlights: [
-            'Resident demographic and census data management',
-            'Public news and village government announcement board',
-            'Responsive citizen portal for public documents'
+            'Citizen demographic data management and village census statistics',
+            'Official government news and announcement publishing board',
+            'Integrated and responsive public services digital gateway',
+            'Centralized Administrative Dashboard for data verification and public governance'
           ],
           link: null,
+          thumbnail: '/projects/jatiroke-1.png',
           images: [
             '/projects/jatiroke-1.png',
+            '/projects/jatiroke-2.png',
             '/projects/jatiroke-3.png',
-            '/projects/jatiroke-4.png',
-            '/projects/jatiroke-2.png'
+            '/projects/jatiroke-4.png'
           ]
         }
       ]
@@ -711,7 +729,6 @@ const translations = {
       viewAll: 'LIHAT SEMUA PROYEK',
       closeModal: 'Tutup Detail',
       viewlive: 'Buka Website Langsung',
-      confidential: 'Sistem Produksi (Privat / Offline)',
       zoom: 'Perbesar gambar',
       items: [
         {
@@ -749,6 +766,24 @@ const translations = {
             '/projects/srimart-3.png',
             '/projects/srimart-4.png',
             '/projects/srimart-5.png'
+
+          ]
+        },
+        {
+          title: 'ZTECH - PT Zefri Teknologi Jaya (Inovasi Energi 7 SOL)',
+          category: 'Company Profile & Inovasi Energi Nasional',
+          description: 'Platform web profil perusahaan dan etalase digital inovasi energi nasional untuk PT. Zefri Teknologi Jaya (Formula Bahan Bakar Ramah Lingkungan 7 SOL). Dirancang dengan arsitektur modern berkecepatan tinggi, navigasi responsif, showcase interaktif visi & misi, katalog formula bahan bakar ramah lingkungan 7 SOL (Gasoline, Diesel, Marine, Industri), serta integrasi formulir konsultasi dan pemesanan instan terhubung langsung ke WhatsApp tim perwakilan.',
+          tags: ['React.js', 'Vite', 'Modern Vanilla CSS', 'Responsive UI/UX', 'SEO Optimization', 'Interactive Showcase'],
+          highlights: [
+            'Arsitektur React & Vite modern dengan Vanilla CSS performa tinggi & responsif penuh di semua perangkat',
+            'Showcase interaktif katalog formula bahan bakar 7 SOL & integrasi brosur informasi produk',
+            'Formulir pemesanan cepat dan alur konsultasi 1-klik langsung ke WhatsApp tim representatif'
+          ],
+          link: null,
+          thumbnail: '/projects/ztech-1.png',
+          images: [
+            '/projects/ztech-1.png',
+            '/projects/ztech-2.png'
           ]
         },
         {
@@ -791,18 +826,20 @@ const translations = {
           title: 'Website Portal Resmi Pemerintah Desa Jatiroke',
           category: 'Sistem Informasi Publik & Pemerintahan',
           description: 'Portal layanan digital dan informasi publik resmi untuk Desa Jatiroke, Kabupaten Sumedang. Memberikan kemudahan administrasi desa melalui manajemen basis data kependudukan, dashboard data statistik kependudukan, publikasi berita, dan promosi potensi wisata desa.',
-          tags: ['CodeIgniter', 'Bootstrap', 'MySQL', 'Dashboard Admin'],
+          tags: ['Next.js', 'Node.js', 'REST API (Swagger UI)', 'PostgreSQL', 'Bootstrap 5', 'Dashboard Admin'],
           highlights: [
             'Manajemen data kependudukan dan statistik penduduk desa',
             'Papan publikasi berita dan pengumuman resmi desa',
-            'Akses pelayanan publik terpadu yang responsif'
+            'Akses pelayanan publik terpadu yang responsif',
+            'Dashboard Admin terintegrasi untuk pengelolaan data & publikasi layanan desa'
           ],
           link: null,
+          thumbnail: '/projects/jatiroke-1.png',
           images: [
             '/projects/jatiroke-1.png',
+            '/projects/jatiroke-2.png',
             '/projects/jatiroke-3.png',
-            '/projects/jatiroke-4.png',
-            '/projects/jatiroke-2.png'
+            '/projects/jatiroke-4.png'
           ]
         }
       ]

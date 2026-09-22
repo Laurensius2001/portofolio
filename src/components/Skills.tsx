@@ -1,134 +1,144 @@
-import type { ReactNode } from 'react';
-import { useLanguage } from '../context/LanguageContext';
-import type { SkillBar, SkillFeature } from '../types/portfolio';
+import { Globe, Code2, ShoppingCart, Zap } from 'lucide-react';
 
-const Skills = () => {
-  const { t } = useLanguage();
+const skillBars = [
+  { name: 'Full-Stack Web Dev', level: 95 },
+  { name: 'Backend & Restful APIs', level: 92 },
+  { name: 'Basis Data & PostgreSQL', level: 90 },
+  { name: 'CMS & Shopify (Liquid)', level: 88 },
+  { name: 'UI / UX & Desain Responsif', level: 92 },
+  { name: 'Sistem & Integrasi POS', level: 86 },
+];
 
-  const title1 = t<string>('skills.title1') || 'SKILLS &';
-  const title2 = t<string>('skills.title2') || 'EXPERTISE';
-  const quoteText = t<string>('skills.quote') || 'I design and build digital experiences that are not only beautiful but also functional, intuitive, and impactful.';
+const features = [
+  {
+    icon: Globe,
+    title: 'Pengembangan End-to-End',
+    desc: 'Membangun solusi lengkap dari antarmuka modern hingga infrastruktur basis data.',
+  },
+  {
+    icon: Code2,
+    title: 'Backend & Restful API',
+    desc: 'Endpoint aman, logika bisnis teruji, dan arsitektur kode modular siap produksi.',
+  },
+  {
+    icon: ShoppingCart,
+    title: 'CMS & E-Commerce Platforms',
+    desc: 'Kustomisasi tema Shopify Liquid, integrasi pembayaran, dan katalog produk.',
+  },
+  {
+    icon: Zap,
+    title: 'Performa & Integrasi Operasional',
+    desc: 'Optimasi query database, integrasi cetak struk POS termal, dan keandalan sistem.',
+  },
+];
 
-  const defaultBars: SkillBar[] = [
-    { name: 'FULL-STACK WEB DEV', level: 95 },
-    { name: 'BACKEND & RESTFUL APIS', level: 92 },
-    { name: 'DATABASE & POSTGRESQL', level: 90 },
-    { name: 'CMS & SHOPIFY (LIQUID)', level: 88 },
-    { name: 'UI / UX & RESPONSIVE DESIGN', level: 92 },
-    { name: 'SYSTEM & POS INTEGRATION', level: 85 }
-  ];
-
-  const bars = (t<SkillBar[]>('skills.bars')) || defaultBars;
-
-  const defaultFeatures: SkillFeature[] = [
-    {
-      icon: 'monitor',
-      title: 'END-TO-END DELIVERY',
-      desc: 'From intuitive frontend interfaces to robust database infrastructures.'
-    },
-    {
-      icon: 'code',
-      title: 'ROBUST BACKEND & APIS',
-      desc: 'Scalable RESTful endpoints, secure business logic, and modular clean code.'
-    },
-    {
-      icon: 'responsive',
-      title: 'CMS & E-COMMERCE ENGINES',
-      desc: 'Custom Shopify Liquid templates, payment gateways, and catalog systems.'
-    },
-    {
-      icon: 'rocket',
-      title: 'PERFORMANCE & HARDWARE POS',
-      desc: 'High-speed database queries, thermal POS receipt printing, and 99.9% uptime.'
-    }
-  ];
-
-  const features = (t<SkillFeature[]>('skills.features')) || defaultFeatures;
-
-  const featureIcons: Record<string, ReactNode> = {
-    monitor: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="3" width="20" height="14" rx="2" />
-        <line x1="8" y1="21" x2="16" y2="21" />
-        <line x1="12" y1="17" x2="12" y2="21" />
-      </svg>
-    ),
-    code: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="16 18 22 12 16 6" />
-        <polyline points="8 6 2 12 8 18" />
-        <line x1="10" y1="20" x2="14" y2="4" />
-      </svg>
-    ),
-    responsive: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <rect x="2" y="4" width="13" height="15" rx="2" />
-        <rect x="15" y="8" width="7" height="11" rx="1.5" />
-      </svg>
-    ),
-    rocket: (
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-        <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
-        <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
-        <circle cx="15" cy="9" r="1" fill="currentColor" />
-      </svg>
-    )
-  };
-
+export default function Skills() {
   return (
-    <section id="skills" className="editorial-skills-section">
-      <div className="container">
-        <div className="editorial-skills-grid">
-          {/* Column 1: Header + Progress Bars */}
-          <div className="skills-editorial-bars-col">
-            <div className="skills-editorial-title">
-              <span className="skills-title-dark">{title1}</span>
-              <span className="skills-title-accent">{title2}</span>
-            </div>
+    <section id="skills" className="skills-section">
 
-            <div className="skills-bars-list">
-              {bars.map((bar, idx) => (
-                <div key={idx} className="skill-bar-row">
-                  <span className="skill-bar-label">{bar.name}</span>
-                  <div className="skill-bar-track">
-                    <div className="skill-bar-fill" style={{ width: `${bar.level}%` }} />
-                  </div>
-                  <span className="skill-bar-value">{bar.level}%</span>
+      {/* ── Dekorasi tersebar di seluruh section ── */}
+      <div className="skills-deco-overlay" aria-hidden="true">
+        {/* Bintang besar lime — kiri atas */}
+        <svg className="sdo sdo-star-1" viewBox="0 0 40 40" fill="none">
+          <path d="M20 2 L23.5 15 L37 15 L26.5 23 L30 36 L20 28 L10 36 L13.5 23 L3 15 L16.5 15 Z" fill="#ccff00" opacity="0.8" />
+        </svg>
+        {/* Ring lime — kiri tengah bawah */}
+        <svg className="sdo sdo-ring-1" viewBox="0 0 60 60" fill="none">
+          <circle cx="30" cy="30" r="24" stroke="#ccff00" strokeWidth="2" strokeDasharray="6 5" strokeLinecap="round" />
+        </svg>
+        {/* Cross ungu — kiri bawah */}
+        <svg className="sdo sdo-cross-1" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2 V18 M2 10 H18" stroke="#a855f7" strokeWidth="2.5" strokeLinecap="round" />
+        </svg>
+        {/* Dot kolom 6 — kiri tengah */}
+        <div className="sdo sdo-dots-col">
+          {[...Array(6)].map((_, i) => <span key={i} className="sd-dot" />)}
+        </div>
+        {/* Bintang kecil putih — tengah kiri */}
+        <svg className="sdo sdo-star-2" viewBox="0 0 24 24" fill="none">
+          <path d="M12 1 L14.5 9 L23 9 L16 14 L18.5 22 L12 17 L5.5 22 L8 14 L1 9 L9.5 9 Z" fill="#ffffff" opacity="0.45" />
+        </svg>
+        {/* Ring ungu — tengah atas */}
+        <svg className="sdo sdo-ring-2" viewBox="0 0 70 70" fill="none">
+          <circle cx="35" cy="35" r="28" stroke="#a855f7" strokeWidth="2" strokeDasharray="5 6" strokeLinecap="round" />
+        </svg>
+        {/* Bintang lime — kanan tengah */}
+        <svg className="sdo sdo-star-3" viewBox="0 0 32 32" fill="none">
+          <path d="M16 1 L19.5 12 L31 12 L22 19 L25.5 30 L16 23 L6.5 30 L10 19 L1 12 L12.5 12 Z" fill="#ccff00" opacity="0.65" />
+        </svg>
+        {/* Cross putih — kanan atas */}
+        <svg className="sdo sdo-cross-2" viewBox="0 0 20 20" fill="none">
+          <path d="M10 2 V18 M2 10 H18" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" opacity="0.35" />
+        </svg>
+        {/* Dot grid 3×3 — kanan bawah */}
+        <div className="sdo sdo-dotgrid">
+          {[...Array(9)].map((_, i) => <span key={i} className="sd-dot" />)}
+        </div>
+        {/* Ring kecil lime — kanan bawah */}
+        <svg className="sdo sdo-ring-3" viewBox="0 0 36 36" fill="none">
+          <circle cx="18" cy="18" r="14" stroke="#ccff00" strokeWidth="1.5" strokeDasharray="4 4" strokeLinecap="round" opacity="0.5" />
+        </svg>
+        {/* Bintang kecil ungu — tengah bawah */}
+        <svg className="sdo sdo-star-4" viewBox="0 0 20 20" fill="none">
+          <path d="M10 1 L12 7.5 L19 7.5 L13.5 11.5 L15.5 18 L10 14 L4.5 18 L6.5 11.5 L1 7.5 L8 7.5 Z" fill="#a855f7" opacity="0.7" />
+        </svg>
+        {/* Ring lime tengah kanan */}
+        <svg className="sdo sdo-ring-4" viewBox="0 0 44 44" fill="none">
+          <circle cx="22" cy="22" r="18" stroke="#ccff00" strokeWidth="1.5" strokeDasharray="3 5" strokeLinecap="round" opacity="0.4" />
+        </svg>
+      </div>
+
+      <div className="skills-3col">
+
+        {/* KOLOM 1: Judul + Skill Bars */}
+        <div className="skills-col skills-col--left">
+          <h2 className="skills-title">
+            KETERAMPILAN&amp; <span className="skills-title-accent">KEAHLIAN</span>
+          </h2>
+
+          <div className="skills-bars">
+            {skillBars.map((s) => (
+              <div key={s.name} className="skill-bar-row">
+                <div className="skill-bar-label">
+                  <span>{s.name}</span>
+                  <span className="skill-bar-pct">{s.level}%</span>
                 </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Column 2: Large Decorative Quote */}
-          <div className="skills-editorial-quote-col">
-            <div className="skills-quote-icon" aria-hidden="true">
-              <svg width="42" height="42" viewBox="0 0 24 24" fill="#E8DDD5">
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
-            </div>
-            <blockquote className="skills-quote-text">
-              {quoteText}
-            </blockquote>
-          </div>
-
-          {/* Column 3: 4 Distinct Pillars with Terracotta Circles */}
-          <div className="skills-editorial-features-col">
-            {features.map((feat, idx) => (
-              <div key={idx} className="skills-feature-item">
-                <div className="skills-feature-circle">
-                  {featureIcons[feat.icon] || featureIcons.monitor}
-                </div>
-                <div className="skills-feature-info">
-                  <h4 className="skills-feature-title">{feat.title}</h4>
-                  <p className="skills-feature-desc">{feat.desc}</p>
+                <div className="skill-bar-track">
+                  <div className="skill-bar-fill" style={{ width: `${s.level}%` }} />
                 </div>
               </div>
             ))}
           </div>
         </div>
+
+        {/* KOLOM 2: Quote */}
+        <div className="skills-col skills-col--quote">
+          <span className="skills-quote-mark">"</span>
+          <p className="skills-quote-text">
+            Saya merancang sistem web tangguh dari arsitektur backend hingga antarmuka intuitif —
+            memecahkan kendala operasional nyata dengan performa optimal.
+          </p>
+        </div>
+
+        {/* KOLOM 3: Feature Cards */}
+        <div className="skills-col skills-col--features">
+          {features.map((f) => {
+            const Icon = f.icon;
+            return (
+              <div key={f.title} className="skills-feature-item">
+                <div className="skills-feature-icon-wrap">
+                  <Icon className="skills-feature-icon" />
+                </div>
+                <div>
+                  <p className="skills-feature-title">{f.title}</p>
+                  <p className="skills-feature-desc">{f.desc}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
       </div>
     </section>
   );
-};
-
-export default Skills;
+}
