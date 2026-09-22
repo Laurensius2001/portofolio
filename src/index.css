@@ -2399,3 +2399,268 @@ a.fc-info-item:hover .fc-info-icon,
     box-sizing: border-box;
   }
 }
+
+/* ==========================================================================
+   SCROLL REVEAL & TIKTOK SHOWCASE ANIMATIONS
+   Ultra-smooth GPU-accelerated entrance transitions
+   ========================================================================== */
+
+/* Base hidden state */
+.reveal-item {
+  opacity: 0;
+  will-change: opacity, transform, filter;
+  transition: opacity 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.85s cubic-bezier(0.16, 1, 0.3, 1),
+              filter 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Directions & Variants */
+.reveal-fade-up {
+  transform: translate3d(0, 38px, 0);
+}
+
+.reveal-fade-down {
+  transform: translate3d(0, -32px, 0);
+}
+
+.reveal-fade-left {
+  transform: translate3d(-38px, 0, 0);
+}
+
+.reveal-fade-right {
+  transform: translate3d(38px, 0, 0);
+}
+
+.reveal-pop {
+  transform: scale(0.88);
+}
+
+.reveal-pop-bounce {
+  transform: scale(0.68) rotate(-5deg);
+}
+
+.reveal-card {
+  transform: translate3d(0, 44px, 0) scale(0.96);
+}
+
+/* Stagger Delays */
+.reveal-delay-1 { transition-delay: 80ms; }
+.reveal-delay-2 { transition-delay: 160ms; }
+.reveal-delay-3 { transition-delay: 240ms; }
+.reveal-delay-4 { transition-delay: 320ms; }
+.reveal-delay-5 { transition-delay: 400ms; }
+.reveal-delay-6 { transition-delay: 480ms; }
+
+/* Revealed State Triggered by Parent or Element */
+.is-revealed .reveal-item,
+.reveal-item.is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1) rotate(0deg);
+}
+
+/* 1. HERO LOAD & ENTRANCE ANIMATIONS */
+@keyframes heroFadeUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 32px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroFadeLeft {
+  from {
+    opacity: 0;
+    transform: translate3d(-35px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroFadeRight {
+  from {
+    opacity: 0;
+    transform: translate3d(35px, 0, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes heroPopBounce {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-8deg);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.08) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+@keyframes heroBrushDraw {
+  from {
+    stroke-dashoffset: 600;
+    opacity: 0;
+  }
+  to {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
+
+@keyframes neonBorderPulse {
+  0%, 100% {
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
+  }
+  50% {
+    border-color: rgba(204, 255, 0, 0.35);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), 0 0 28px rgba(204, 255, 0, 0.14);
+  }
+}
+
+/* 2. SKILL BARS SHIMMER & FILL */
+@keyframes skillBarShimmer {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 200%;
+  }
+}
+
+.skills-section:not(.is-revealed) .skill-bar-fill {
+  width: 0% !important;
+  transition: width 0.3s ease;
+}
+
+.skills-section.is-revealed .skill-bar-fill {
+  position: relative;
+  overflow: hidden;
+  transition: width 1.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 0 10px rgba(204, 255, 0, 0.6);
+}
+
+.skills-section.is-revealed .skill-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.6) 50%,
+    transparent 100%
+  );
+  animation: skillBarShimmer 2.2s infinite;
+}
+
+/* 3. CONTACT DOODLE DRAW & CHARACTER BOUNCE */
+@keyframes drawStrokeLine {
+  from {
+    stroke-dashoffset: 350;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes charBounceIn {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.85);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-8px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.site-footer-contact.is-revealed .footer-contact-character-img {
+  animation: charBounceIn 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.site-footer-contact.is-revealed .fc-underline path {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: drawStrokeLine 1s 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.site-footer-contact.is-revealed .fc-purple-loop path {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawStrokeLine 1.3s 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.projects-root-section.is-revealed .projects-big-card {
+  animation: neonBorderPulse 3.5s ease-in-out infinite;
+}
+
+/* Hero animations on page load */
+.hero-enter-title {
+  animation: heroFadeUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-hey {
+  animation: heroFadeLeft 0.8s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-crown {
+  animation: heroPopBounce 0.9s 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-underline {
+  stroke-dasharray: 600;
+  animation: heroBrushDraw 1.2s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-subtitle {
+  animation: heroFadeUp 0.8s 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-desc {
+  animation: heroFadeUp 0.8s 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-cta {
+  animation: heroFadeUp 0.8s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-character {
+  animation: heroFadeRight 1s 0.2s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-bubble {
+  animation: heroPopBounce 0.9s 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-star {
+  animation: heroPopBounce 0.9s 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-enter-scroll {
+  animation: heroFadeUp 0.9s 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Mobile optimizations for scroll reveal */
+@media (max-width: 580px) {
+  .reveal-fade-up {
+    transform: translate3d(0, 24px, 0);
+  }
+  .reveal-fade-left {
+    transform: translate3d(-24px, 0, 0);
+  }
+  .reveal-fade-right {
+    transform: translate3d(24px, 0, 0);
+  }
+  .reveal-card {
+    transform: translate3d(0, 28px, 0) scale(0.97);
+  }
+}
+

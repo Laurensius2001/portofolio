@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { ArrowUp, Phone, Mail, MapPin } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function Contact() {
   const [copied, setCopied] = useState(false);
+  const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.12 });
 
   const emailValue = 'lorensadonara@gmail.com';
   const whatsappUrl = 'https://wa.me/6281337383282';
@@ -19,7 +21,7 @@ export default function Contact() {
   };
 
   return (
-    <footer id="contact" className="site-footer-contact">
+    <footer id="contact" ref={sectionRef} className={`site-footer-contact ${isVisible ? 'is-revealed' : ''}`}>
       <div className="footer-3col">
 
         {/* BARIS HERO MOBILE: Karakter (kiri) + Headline (kanan) — hanya tampil di ≤580px */}
@@ -29,20 +31,20 @@ export default function Contact() {
             <img
               src="/contact-character.png"
               alt="Waving Cartoon Character"
-              className="footer-contact-character-img"
+              className="footer-contact-character-img reveal-item reveal-pop-bounce"
               loading="lazy"
             />
           </div>
           {/* Headline */}
           <div className="fc-col fc-col--headline">
-            <p className="fc-line fc-line--white">MARI CIPTAKAN</p>
-            <p className="fc-line fc-line--white fc-line--something">
+            <p className="fc-line fc-line--white reveal-item reveal-fade-up">MARI CIPTAKAN</p>
+            <p className="fc-line fc-line--white fc-line--something reveal-item reveal-fade-up reveal-delay-1">
               SESUATU YANG
               <svg className="fc-underline" viewBox="0 0 160 10" fill="none" aria-hidden="true" preserveAspectRatio="none">
                 <path d="M 2 6 C 40 8, 100 3, 158 6" stroke="#ccff00" strokeWidth="3.5" strokeLinecap="round" />
               </svg>
             </p>
-            <p className="fc-line fc-line--awesome">
+            <p className="fc-line fc-line--awesome reveal-item reveal-pop reveal-delay-2">
               <span className="fc-awesome-text">LUAR BIASA!</span>
               <svg className="fc-purple-loop" viewBox="0 0 220 60" fill="none" aria-hidden="true" preserveAspectRatio="none">
                 <path
@@ -62,21 +64,21 @@ export default function Contact() {
           <img
             src="/contact-character.png"
             alt="Waving Cartoon Character"
-            className="footer-contact-character-img"
+            className="footer-contact-character-img reveal-item reveal-pop-bounce"
             loading="lazy"
           />
         </div>
 
         {/* KOLOM 2: Headline — desktop & tablet */}
         <div className="fc-col fc-col--headline">
-          <p className="fc-line fc-line--white">MARI CIPTAKAN</p>
-          <p className="fc-line fc-line--white fc-line--something">
+          <p className="fc-line fc-line--white reveal-item reveal-fade-up">MARI CIPTAKAN</p>
+          <p className="fc-line fc-line--white fc-line--something reveal-item reveal-fade-up reveal-delay-1">
             SESUATU YANG
             <svg className="fc-underline" viewBox="0 0 160 10" fill="none" aria-hidden="true" preserveAspectRatio="none">
               <path d="M 2 6 C 40 8, 100 3, 158 6" stroke="#ccff00" strokeWidth="3.5" strokeLinecap="round" />
             </svg>
           </p>
-          <p className="fc-line fc-line--awesome">
+          <p className="fc-line fc-line--awesome reveal-item reveal-pop reveal-delay-2">
             <span className="fc-awesome-text">LUAR BIASA!</span>
             <svg className="fc-purple-loop" viewBox="0 0 220 60" fill="none" aria-hidden="true" preserveAspectRatio="none">
               <path
@@ -92,23 +94,23 @@ export default function Contact() {
 
         {/* KOLOM 3: Kontak */}
         <div className="fc-col fc-col--info">
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="fc-info-item">
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="fc-info-item reveal-item reveal-fade-up reveal-delay-3">
             <Phone className="fc-info-icon" />
             <span>{phoneDisplay}</span>
           </a>
 
-          <div className="fc-info-item fc-info-email" onClick={copyEmail} title="Klik untuk menyalin email">
+          <div className="fc-info-item fc-info-email reveal-item reveal-fade-up reveal-delay-4" onClick={copyEmail} title="Klik untuk menyalin email">
             <Mail className="fc-info-icon" />
             <span>{emailValue}</span>
             {copied && <span className="fc-copied">✓ Disalin!</span>}
           </div>
 
-          <div className="fc-info-item">
+          <div className="fc-info-item reveal-item reveal-fade-up reveal-delay-5">
             <MapPin className="fc-info-icon" />
             <span className="fc-info-loc">Indonesia</span>
           </div>
 
-          <button onClick={scrollToTop} className="btn-footer-back-top" aria-label="Kembali ke atas">
+          <button onClick={scrollToTop} className="btn-footer-back-top reveal-item reveal-pop-bounce reveal-delay-5" aria-label="Kembali ke atas">
             <ArrowUp className="arrow-up-icon" />
           </button>
         </div>

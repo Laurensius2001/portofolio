@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import type { ProjectItem } from '../types/portfolio';
 import { ArrowUpRight, X, ChevronLeft, ChevronRight, ExternalLink, Sparkles } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 export default function Projects() {
   const { t } = useLanguage();
@@ -236,16 +237,18 @@ export default function Projects() {
   // Current primary focus dot (0 to 4)
   const activeDotIndex = N > 0 ? ((currentIndex % N) + N) % N : 0;
 
+  const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.1 });
+
   return (
-    <section id="projects" className="projects-root-section">
+    <section id="projects" ref={sectionRef} className={`projects-root-section ${isVisible ? 'is-revealed' : ''}`}>
       <div className="projects-section-container">
 
         {/* Large Rounded Container Matching Reference Design */}
-        <div className="projects-big-card">
+        <div className={`projects-big-card ${isVisible ? 'is-revealed' : ''}`}>
 
           {/* Doodle 1: Orange Cartoon Creature Face (Top Right on border) */}
           <svg
-            className="doodle-cat-top-right"
+            className="doodle-cat-top-right reveal-item reveal-pop-bounce"
             width="64"
             height="64"
             viewBox="0 0 64 64"
@@ -273,7 +276,7 @@ export default function Projects() {
 
           {/* Doodle 2: Neon Lime Scribble Zig-Zag (Bottom Left outside) */}
           <svg
-            className="doodle-scribble-bottom-left"
+            className="doodle-scribble-bottom-left reveal-item reveal-pop reveal-delay-2"
             width="52"
             height="52"
             viewBox="0 0 56 56"
@@ -291,7 +294,7 @@ export default function Projects() {
 
           {/* HEADER ROW: Title + Purple Squiggle on Left, Auto-Slide & Nav Controls on Right */}
           <div className="featured-header-row">
-            <div className="featured-title-group">
+            <div className="featured-title-group reveal-item reveal-fade-up">
               <div className="featured-title-badge-row">
                 <h2 className="featured-main-title">
                   KARYA TERPILIH
@@ -317,7 +320,7 @@ export default function Projects() {
             </div>
 
             {/* Slider Controls: Auto-slide Status Pill & Manual Arrow Buttons */}
-            <div className="carousel-controls-group">
+            <div className="carousel-controls-group reveal-item reveal-fade-left reveal-delay-2">
               <div
                 className="carousel-status-pill"
                 title={isPaused ? "Slide otomatis dijeda saat mouse berada di kartu" : "Slide otomatis aktif (1 2 3 4 5 berulang terus)"}
@@ -351,7 +354,7 @@ export default function Projects() {
           {/* INFINITE SLIDER CAROUSEL TRACK (4 CARDS VISIBLE BY DEFAULT) */}
           <div
             ref={containerRef}
-            className="carousel-viewport"
+            className="carousel-viewport reveal-item reveal-card reveal-delay-3"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onTouchStart={handleTouchStart}
@@ -414,7 +417,7 @@ export default function Projects() {
           </div>
 
           {/* CAROUSEL FOOTER BAR (DOTS NAVIGATION + COUNTER) */}
-          <div className="carousel-footer-bar">
+          <div className="carousel-footer-bar reveal-item reveal-fade-up reveal-delay-4">
             <div className="carousel-dots-list">
               {items.map((proj, i) => {
                 const { displayTitle } = getCardDisplayMeta(proj);

@@ -72,7 +72,7 @@ export default function Hero() {
         <div className="master-hero-left">
           
           {/* "Halo," + Curved White Arrow + "Saya" */}
-          <div className="master-hey-row">
+          <div className="master-hey-row hero-enter-hey">
             <span className="master-hey-text">Halo,</span>
             {/* Hand-drawn white arrow pointing towards "Saya" */}
             <svg
@@ -95,7 +95,7 @@ export default function Hero() {
           {/* Giant Brush Headline with Floating Lime Crown */}
           <div className="master-headline-wrapper">
             {/* Lime Crown Doodle floating above name */}
-            <div className="master-floating-crown">
+            <div className="master-floating-crown hero-enter-crown">
               <svg width="48" height="34" viewBox="0 0 48 34" fill="none">
                 <path
                   d="M 3 30 L 6 10 L 18 20 L 24 4 L 30 20 L 42 10 L 45 30 Z"
@@ -108,13 +108,13 @@ export default function Hero() {
             </div>
 
             {/* Giant Name: LORENS ADONARA */}
-            <h1 className="master-giant-name">
+            <h1 className="master-giant-name hero-enter-title">
               LORENS ADONARA
             </h1>
 
             {/* Thick Lime Brush Underline */}
             <svg
-              className="master-brush-stroke-underline"
+              className="master-brush-stroke-underline hero-enter-underline"
               viewBox="0 0 540 20"
               fill="none"
               preserveAspectRatio="none"
@@ -130,17 +130,17 @@ export default function Hero() {
           </div>
 
           {/* Subtitle: WEB DESIGNER & DIGITAL CREATIVE */}
-          <h2 className="master-subtitle">
+          <h2 className="master-subtitle hero-enter-subtitle">
             WEB DESIGNER & DIGITAL CREATIVE
           </h2>
 
           {/* Supporting Description */}
-          <p className="master-description">
+          <p className="master-description hero-enter-desc">
             seorang Senior Full-Stack Web Developer asal Indonesia. Saya berfokus pada pengembangan sistem aplikasi web menyeluruh, arsitektur backend skala besar, serta API terintegrasi yang memecahkan kendala operasional nyata.
           </p>
 
           {/* CTA Buttons (Matching Reference Pills) */}
-          <div className="master-cta-group">
+          <div className="master-cta-group hero-enter-cta">
             {/* Primary Lime Green Pill Button */}
             <button
               onClick={() => scrollToSection('projects')}
@@ -164,7 +164,7 @@ export default function Hero() {
 
         {/* RIGHT COLUMN: FULL-WIDTH ANCHORED AVATAR WITH MANIK-MANIK DOODLES */}
         <div className="master-hero-right">
-          <div className="master-character-wrapper">
+          <div className="master-character-wrapper hero-enter-character">
             
             {/* Desktop Red-Orange Graffiti Splatter & Spray */}
             <svg
@@ -259,7 +259,7 @@ export default function Hero() {
             </svg>
 
             {/* Manik-manik 1: Blue Speech Bubble ("LET'S CREATE SOMETHING AWESOME!") */}
-            <div className="master-speech-bubble-doodle">
+            <div className="master-speech-bubble-doodle hero-enter-bubble">
               <svg
                 className="master-speech-svg"
                 viewBox="0 0 220 145"
@@ -301,7 +301,7 @@ export default function Hero() {
             </div>
 
             {/* Manik-manik 2: Yellow Star Doodle (Floating Above Hair Right) */}
-            <div className="master-star-doodle">
+            <div className="master-star-doodle hero-enter-star">
               <svg width="48" height="48" viewBox="0 0 54 54" fill="none">
                 <path
                   d="M 27 2 L 35 17 L 52 20 L 40 33 L 43 50 L 27 42 L 11 50 L 14 33 L 2 20 L 19 17 Z"
@@ -378,7 +378,7 @@ export default function Hero() {
       </div>
 
       {/* 3. CENTERED SCROLL DOWN INDICATOR WITH DOODLES */}
-      <div className="master-scroll-down-center">
+      <div className="master-scroll-down-center hero-enter-scroll">
         {/* White curved arrow pointing down */}
         <svg
           className="master-arrow-down-left"

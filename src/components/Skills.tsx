@@ -1,4 +1,5 @@
 import { Globe, Code2, ShoppingCart, Zap } from 'lucide-react';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const skillBars = [
   { name: 'Full-Stack Web Dev', level: 95 },
@@ -33,8 +34,10 @@ const features = [
 ];
 
 export default function Skills() {
+  const { ref: sectionRef, isVisible } = useScrollReveal<HTMLElement>({ threshold: 0.12 });
+
   return (
-    <section id="skills" className="skills-section">
+    <section id="skills" ref={sectionRef} className={`skills-section ${isVisible ? 'is-revealed' : ''}`}>
 
       {/* ── Dekorasi tersebar di seluruh section ── */}
       <div className="skills-deco-overlay" aria-hidden="true">
@@ -92,19 +95,22 @@ export default function Skills() {
 
         {/* KOLOM 1: Judul + Skill Bars */}
         <div className="skills-col skills-col--left">
-          <h2 className="skills-title">
+          <h2 className="skills-title reveal-item reveal-fade-up">
             KETERAMPILAN&amp; <span className="skills-title-accent">KEAHLIAN</span>
           </h2>
 
           <div className="skills-bars">
-            {skillBars.map((s) => (
-              <div key={s.name} className="skill-bar-row">
+            {skillBars.map((s, idx) => (
+              <div key={s.name} className={`skill-bar-row reveal-item reveal-fade-up reveal-delay-${(idx % 6) + 1}`}>
                 <div className="skill-bar-label">
                   <span>{s.name}</span>
                   <span className="skill-bar-pct">{s.level}%</span>
                 </div>
                 <div className="skill-bar-track">
-                  <div className="skill-bar-fill" style={{ width: `${s.level}%` }} />
+                  <div
+                    className="skill-bar-fill"
+                    style={{ width: isVisible ? `${s.level}%` : '0%' }}
+                  />
                 </div>
               </div>
             ))}
@@ -112,7 +118,7 @@ export default function Skills() {
         </div>
 
         {/* KOLOM 2: Quote */}
-        <div className="skills-col skills-col--quote">
+        <div className="skills-col skills-col--quote reveal-item reveal-fade-up reveal-delay-2">
           <span className="skills-quote-mark">"</span>
           <p className="skills-quote-text">
             Saya merancang sistem web tangguh dari arsitektur backend hingga antarmuka intuitif —
@@ -122,10 +128,10 @@ export default function Skills() {
 
         {/* KOLOM 3: Feature Cards */}
         <div className="skills-col skills-col--features">
-          {features.map((f) => {
+          {features.map((f, idx) => {
             const Icon = f.icon;
             return (
-              <div key={f.title} className="skills-feature-item">
+              <div key={f.title} className={`skills-feature-item reveal-item reveal-card reveal-delay-${(idx % 4) + 1}`}>
                 <div className="skills-feature-icon-wrap">
                   <Icon className="skills-feature-icon" />
                 </div>
