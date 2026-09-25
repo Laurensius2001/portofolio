@@ -799,10 +799,10 @@ const translations = {
           link: null,
           images: [
             '/projects/chata-landing.png',
-            '/projects/chata-1.png',
-            '/projects/chata-2.png',
+            '/projects/chata-4.png',
             '/projects/chata-3.png',
-            '/projects/chata-4.png'
+            '/projects/chata-1.png',
+            '/projects/chata-2.png'
           ]
         },
         {
